@@ -10,6 +10,11 @@ import {AppFramework} from 'rocketvueappframework/framework';
 Vue.use(AppFramework);
 ```
 
+And somewhere in you main app or main app layout blade file (if you are using laravel):
+```
+<rocket-app-framework></rocket-app-framework>
+```
+
 # Usage
 
 ## Dialogs
@@ -87,5 +92,23 @@ session()->flash('status,'Successful');
 ```
 
 A snackbar will then be displayed upon page load.
+
+# Wrapped components
+Some of the vuetify components are wrapped in Rocket Wrapper components to provide a quicker API for using them. If you are using the framework plugin they are automatically imported, but they could also be imported separately. They are all prefixed with rw- (for Rocket Wrapped).
+
+## Vuetify dialogs
+```
+  <rw-dialog title="Dialog title here" v-model="showDialog">
+            Content here
+            <div slot="actions">
+                <v-btn class="primary--text" flat>OK<v-btn>
+            </div>
+  </rw-dialog>
+```
+include rocketvueappframework/components/DialogWrapper.vue (if using separately from the framework).
+
+## Vuetify Tabs
+Coming soon
+
 
 
