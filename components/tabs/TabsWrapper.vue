@@ -27,12 +27,14 @@ import {AppFrameworkEventBus} from '../../framework';
             if(node.tag!==undefined&&node.tag.indexOf('rw-tab')>-1){
                 let props=node.componentOptions.propsData;
                 let tabid=this.id+'_'+id;
+                if(props.id && props.id!=='')
+                    tabid=props.id;
 
                 let tabTitle=[];
-                if(props.hasOwnProperty('title')&&props.title!='')
+                if(props.hasOwnProperty('title')&&props.title!=='')
                  tabTitle.push(props.title);
 
-                if(props.hasOwnProperty('icon')&&props.icon!=''){
+                if(props.hasOwnProperty('icon')&&props.icon!==''){
                   icons=true;
                   tabTitle.push(h('v-icon',{},props.icon));
                 }

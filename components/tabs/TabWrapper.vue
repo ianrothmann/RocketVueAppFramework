@@ -3,7 +3,7 @@
         props : {
             title : {required:true},
             icon : {},
-            active : {}
+            id : {required:false}
         },
         render(h){
           return h('v-card',{},[h('v-card-text',{},this.$slots.default)]);

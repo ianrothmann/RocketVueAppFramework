@@ -24,6 +24,7 @@ And somewhere in you main app or main app layout blade file (if you are using la
 
 or a more advanced usage:
 
+
 this.$dialog(title,message,buttonObject);
 
 ```
