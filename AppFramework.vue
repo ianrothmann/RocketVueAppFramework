@@ -9,7 +9,7 @@
             <span class="grey--text--darken-3" v-html="loaderText" v-if="loaderText!=''"></span>
         </div>
 
-        <rw-dialog :title="dialogContent.title" v-model="showDialog">
+        <rw-dialog :title="dialogContent.title" v-model="showDialog" :persistent="true">
             <div v-html="dialogContent.content"></div>
             <div slot="actions">
                 <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>

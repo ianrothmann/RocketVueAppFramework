@@ -4,6 +4,7 @@ import {AppFrameworkEventBus} from '../../framework';
        props: {
             centered: {'default' : false},
             grow: {'default' : true},
+            light: {'default' : true},
             scrollBars: {'default' : false},
             value: String
         },
@@ -11,11 +12,18 @@ import {AppFrameworkEventBus} from '../../framework';
             return{
                 id:'tab',
                 tabs : [],
-                active : 1
+                defaultTabid:null
             }
         },
         created(){
            this.id=AppFrameworkEventBus.getUniqueID('tab');
+        },
+        mounted(){
+            if(this.defaultTabid!==null){
+                setTimeout(()=>{
+                    this.$emit('input',this.defaultTabid);
+                },100);
+            }
         },
         render(h) {
           let id=1;
@@ -30,6 +38,10 @@ import {AppFrameworkEventBus} from '../../framework';
                 if(props.id && props.id!=='')
                     tabid=props.id;
 
+                if(props.active&&props.active===true){
+                    this.defaultTabid=tabid;
+                }
+
                 let tabTitle=[];
                 if(props.hasOwnProperty('title')&&props.title!=='')
                  tabTitle.push(props.title);
@@ -39,12 +51,15 @@ import {AppFrameworkEventBus} from '../../framework';
                   tabTitle.push(h('v-icon',{},props.icon));
                 }
 
-                tabNodes.push(h('v-tab-item',{slot:'activators',domProps: {href:'#'+tabid, id:tabid}},tabTitle));
-                tabContent.push(h('v-tab-content',{slot:'content', domProps: {id:tabid}}, [node])),
+                tabNodes.push(h('v-tabs-item',{attrs: {href:'#'+tabid, id:tabid, ripple:true}},tabTitle));
+                tabContent.push(h('v-tabs-content',{attrs: {id:tabid}}, [node])),
                 id++;
             }
 
           });
+
+          const tabsBar=[h('v-tabs-bar',{slot:'activators'},tabNodes.concat(h('v-tabs-slider')))];
+
 
           let props=this.$props;
           props['icons']=icons;
@@ -53,7 +68,7 @@ import {AppFrameworkEventBus} from '../../framework';
             on : {
                 input : e => this.$emit('input',e)
             }
-          },tabNodes.concat(tabContent));
+          },tabsBar.concat(tabContent));
         }
     }
 </script>

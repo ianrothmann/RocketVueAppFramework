@@ -2,7 +2,12 @@ import Vue from 'vue';
 import {createPromiseHandler} from './common/promiseHandler'
 
 
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
+
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
+Vue.component('rw-input', require('./components/input/InputWrapper.vue'));
+Vue.component('rw-select', require('./components/select/SelectWrapper.vue'));
 Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
 Vue.component('rw-tabs', require('./components/tabs/TabsWrapper.vue'));
 Vue.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
