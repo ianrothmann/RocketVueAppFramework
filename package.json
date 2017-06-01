@@ -1,0 +1,26 @@
+{
+  "name": "rocketvueappframework",
+  "version": "0.1.0",
+  "description": "A series of Vue Components and Plugins that help speed up general app development. Currently implemented using Vuetify.",
+  "main": "framework.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianrothmann/RocketVueAppFramework.git"
+  },
+  "keywords": [
+    "Vue",
+    "Framework"
+  ],
+  "author": "Ian Rothmann",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ianrothmann/RocketVueAppFramework/issues"
+  },
+  "homepage": "https://github.com/ianrothmann/RocketVueAppFramework#readme",
+  "devDependencies": {
+    "vuetify": "^0.11.0"
+  }
+}

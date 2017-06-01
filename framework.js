@@ -2,11 +2,25 @@ import Vue from 'vue';
 import {createPromiseHandler} from './common/promiseHandler'
 
 
-Vue.component('app-framework', require('./AppFramework.vue'));
-Vue.component('w-dialog', require('./components/DialogWrapper.vue'));
+Vue.component('rocket-app-framework', require('./AppFramework.vue'));
+Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
+Vue.component('rw-tabs', require('./components/tabs/TabsWrapper.vue'));
+Vue.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
+Vue.component('rw-card', require('./components/card/CardWrapper.vue'));
+Vue.component('rw-card-actions', require('./components/card/CardActionWrapper.vue'));
 
 
-export const AppFrameworkEventBus = new Vue();
+export const AppFrameworkEventBus = new Vue({
+    data : {
+        currentID : 0
+    },
+    methods : {
+        getUniqueID(prefix){
+            this.currentID++;
+            return 'app_'+prefix+this.currentID;
+        }
+    }
+});
 export const AppFramework = {};
 
 AppFramework.install = function (Vue, options) {
