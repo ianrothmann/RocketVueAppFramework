@@ -6,6 +6,8 @@ import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
 
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
+Vue.component('rw-container', require('./components/layout/ContainerWrapper.vue'));
+Vue.component('rw-menu', require('./components/menu/MenuWrapper.vue'));
 Vue.component('rw-list', require('./components/list/ListWrapper.vue'));
 Vue.component('rw-list-group', require('./components/list/ListGroupWrapper.vue'));
 Vue.component('rw-list-header', require('./components/list/ListHeaderWrapper.vue'));

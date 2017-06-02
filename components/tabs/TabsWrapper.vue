@@ -63,6 +63,7 @@ import {AppFrameworkEventBus} from '../../framework';
 
           let props=this.$props;
           props['icons']=icons;
+
           return h('v-tabs',{
             props:props,
             on : {

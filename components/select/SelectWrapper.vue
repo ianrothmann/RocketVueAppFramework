@@ -75,7 +75,9 @@
 
         },
         render(h){
-
+            /*
+             TODO:List item custom formatting and server-items
+             */
           return h('v-select',{
               props : this.innerProps,
               on : {

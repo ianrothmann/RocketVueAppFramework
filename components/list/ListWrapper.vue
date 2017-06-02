@@ -1,9 +1,11 @@
 <script>
     export default{
        props: {
-            noRipple : Boolean,
-            value: String,
-            dividers : Boolean
+           noRipple : Boolean,
+           value: String,
+           dividers : Boolean,
+           compact : Boolean,
+           large : Boolean,
         },
         data(){
             return{
@@ -115,6 +117,9 @@
            }
         },
         render(h) {
+            /*
+            TODO:Avatars
+             */
             const items=[];
             let lastItem='';
             this.$slots.default.forEach((node)=> {
@@ -142,14 +147,21 @@
                 }
             });
 
-          let props=this.$props;
-          props['subheader']=true;
-          return h('v-list',{
-            props:props,
-            on : {
-                input : e => this.$emit('input',e)
+            let props=this.$props;
+            props['subheader']=true;
+            if(this.large){
+                props['threeLine']=true;
             }
-          },items);
+            if(this.compact){
+                props['dense']=true;
+
+            }
+            return h('v-list',{
+                props:props,
+                on : {
+                    input : e => this.$emit('input',e)
+                }
+            },items);
         }
     }
 </script>
