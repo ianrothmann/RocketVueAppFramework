@@ -6,6 +6,10 @@ import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
 
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
+Vue.component('rw-list', require('./components/list/ListWrapper.vue'));
+Vue.component('rw-list-group', require('./components/list/ListGroupWrapper.vue'));
+Vue.component('rw-list-header', require('./components/list/ListHeaderWrapper.vue'));
+Vue.component('rw-list-item', require('./components/list/ListItemWrapper.vue'));
 Vue.component('rw-input', require('./components/input/InputWrapper.vue'));
 Vue.component('rw-select', require('./components/select/SelectWrapper.vue'));
 Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
