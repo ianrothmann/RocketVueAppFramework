@@ -3,6 +3,7 @@
         props : {
             dark : Boolean,
             icon : String,
+            lazy : Boolean,
             title : String,
             offsetX: Boolean,
             offsetY: Boolean,
