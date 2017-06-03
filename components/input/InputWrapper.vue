@@ -90,7 +90,10 @@
           return h('v-text-field',{
               props : this.innerProps,
               on : {
-                  input : e => this.$emit('input',e)
+                  input : e => this.$emit('input',e),
+                  focus : e => this.$emit('focus',e),
+                  blur : e => this.$emit('blur',e),
+                  change : e => this.$emit('change',e)
               }
           },this.$slots.default);
         }

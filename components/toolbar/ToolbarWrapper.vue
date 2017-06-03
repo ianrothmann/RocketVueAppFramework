@@ -22,9 +22,17 @@
 
             const items=[];
             if(this.sideIcon){
-                items.push(h('v-toolbar-side-icon',{
-                    props : Object.assign({},shade)
-                },''));
+
+                items.push(h('v-btn',{
+                    props : Object.assign({'icon':true},shade),
+                    nativeOn : {
+                        click : e => {
+                            this.$emit('side-icon-click',e);
+                        }
+                    }
+                },[h('v-icon',{
+
+                },'menu')]));
             }
             if(this.title){
                 items.push(h('v-toolbar-title',{},this.title));

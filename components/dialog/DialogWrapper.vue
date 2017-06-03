@@ -29,11 +29,6 @@
           title : {required:true},
           value : {}
         },
-        data(){
-            return{
-
-            }
-        },
         methods : {
           showChanged(show){
             this.$emit("input",show);

@@ -7,11 +7,6 @@
            compact : Boolean,
            large : Boolean,
         },
-        data(){
-            return{
-
-            }
-        },
         methods : {
            renderGroup(h,node){
                let props = node.componentOptions.propsData;
