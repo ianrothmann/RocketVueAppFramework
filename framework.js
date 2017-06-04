@@ -27,6 +27,8 @@ Vue.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
 Vue.component('rw-card', require('./components/card/CardWrapper.vue'));
 Vue.component('rw-card-actions', require('./components/card/CardActionWrapper.vue'));
 Vue.component('rw-date', require('./components/datetime/DateWrapper.vue'));
+Vue.component('rw-datetime', require('./components/datetime/DateTimeWrapper.vue'));
+Vue.component('rw-time', require('./components/datetime/TimeWrapper.vue'));
 
 
 export const AppFrameworkEventBus = new Vue({

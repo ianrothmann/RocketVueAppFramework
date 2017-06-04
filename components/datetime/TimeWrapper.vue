@@ -10,12 +10,8 @@
             hint : String,
             disabled : Boolean,
             compact : Boolean,
-            months : Array,//renaming months
-            days : Array,//renaming days
             landscape : Boolean,
-            allowedDates : [Array,Function,Object],
-            allowBefore : [Date,String],
-            allowAfter : [Date,String]
+            ampm : {'default':true}
         },
         mixins : [Themable],
         render(h){
@@ -37,6 +33,10 @@
               props['scrollable'] = true;
           }
 
+          if(props['ampm'])
+              props['format']='ampm';
+          else
+              props['format']='24hr';
 
           props['actions'] = true;
           if(!props['dark'])
@@ -45,20 +45,7 @@
           if(props['compact'])
             props['noTitle']=true;
 
-          if(props['allowedDates']===undefined){
-              if(props['allowBefore']||props['allowAfter'])
-                props['allowedDates']={min:null,max:'2100-01-01'};
-
-              if(props['allowBefore']){
-                  props['allowedDates']['max']=props['allowBefore'];
-              }
-
-              if(props['allowAfter']){
-                  props['allowedDates']['min']=props['allowAfter'];
-              }
-          }
-
-          const datepicker=h('v-date-picker',{
+          const datepicker=h('v-time-picker',{
               props,
               on : {
                   input : e=>this.$emit('input',e)
@@ -73,7 +60,7 @@
                   slot : 'activator',
                   props : {
                       readonly : true,
-                      prependIcon : 'event',
+                      prependIcon : 'access_time',
                       value : this.value,
                       label : this.label,
                       name : this.name,
