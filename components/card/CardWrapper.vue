@@ -88,7 +88,7 @@
                    }
                });
            }
-           console.log( );
+
             let data={
                 props:{
                     hover : ctx.props.hover,

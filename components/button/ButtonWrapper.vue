@@ -33,7 +33,7 @@
             }
         },
         render(h,context){
-          const props=context.props;
+          let props=context.props;
           let content;
           if(context.props.icon!==undefined){
               content=[h('v-icon',{},context.props.icon)];
@@ -41,10 +41,10 @@
           }else{
               content=context.children;
           }
-            return h('v-btn',{
-              props,
-              nativeOn:context.listeners
-          },content);
+
+          let data=context.data;
+          data['props']=props;
+          return h('v-btn',data,content);
         }
     }
 </script>

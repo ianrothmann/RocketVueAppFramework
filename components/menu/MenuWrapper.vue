@@ -47,7 +47,7 @@
                 },this.title));
                 menuProps['offset-y']=true;
             }
-            console.log(menuProps);
+
             return h('v-menu',{
                 props:menuProps
             },items.concat(this.$slots.default));
