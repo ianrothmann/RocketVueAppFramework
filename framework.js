@@ -7,6 +7,8 @@ Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
 
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
 Vue.component('rw-container', require('./components/layout/ContainerWrapper.vue'));
+Vue.component('rw-divider', require('./components/layout/DividerWrapper.vue'));
+Vue.component('rw-spacer', require('./components/layout/SpacerWrapper.vue'));
 Vue.component('rw-toolbar', require('./components/toolbar/ToolbarWrapper.vue'));
 Vue.component('rw-toolbar-item', require('./components/toolbar/ToolbarItemWrapper.vue'));
 Vue.component('rw-btn', require('./components/button/ButtonWrapper.vue'));

@@ -7,6 +7,9 @@
           title:String,
           hover:Boolean,
           raised:Boolean,
+          horizontal:Boolean,
+          imgLeft:Boolean,
+          imgRight:Boolean,
           img:String,
           imgHeight:String,
           fill:Boolean,
@@ -48,10 +51,14 @@
            const actionChilden=[];
 
            ctx.children.forEach((node)=>{
+
                if(node.tag){
-                   if(node.tag.indexOf('rw-card-title')>-1){
+                   if(node.functionalOptions && node.functionalOptions.name==='title'){
                        titleChildren.push(node);
                    }else if(node.data && node.data.ref==='actions'){
+                       if(node.data.props['divider']!==false)
+                        actionChilden.push(h('v-divider'));
+
                        actionChilden.push(node);
                    }else{
                        innerChildren.push(node);
@@ -61,11 +68,13 @@
                }
            });
 
-           if(ctx.props.title!==undefined){
+           if(ctx.props.title!==undefined&&titleChildren.length===0){
                cardTitle=h('v-card-title',{},[h('span',{},ctx.props.title),h('v-spacer'),titleChildren]);
                if(!isset('fill')){
                    cardTitle=h('v-card-row',{'class':contextClasses},[cardTitle]);
                }
+           }else{
+               cardTitle=titleChildren;
            }
 
            cardInner=h('v-card-text',{},innerChildren);
@@ -79,15 +88,30 @@
                    }
                });
            }
+           console.log( );
+            let data={
+                props:{
+                    hover : ctx.props.hover,
+                    raised : ctx.props.raised,
+                    horizontal : ctx.props.horizontal
+                },
+                'class' : cardClasses
+            };
+            data=Object.assign(data,ctx.data);
 
-           return h('v-card',{
-            props:{
-              hover : ctx.props.hover,
-              raised : ctx.props.raised,
-              horizontal : ctx.props.horizontal
-            },
-            'class' : cardClasses
-           },[cardTitle,cardImg,cardInner,actionChilden]);
+            if(data.props.horizontal){
+                if(ctx.props.imgRight){
+                    return h('v-card',data,[h('v-card-column',{},[cardInner,actionChilden]),cardImg]);
+                }else{
+                    return h('v-card',data,[cardImg,h('v-card-column',{},[cardInner,actionChilden])]);
+                }
+
+            }else{
+                return h('v-card',data,[cardTitle,cardImg,cardInner,actionChilden]);
+            }
+
+
+
         }
     }
 </script>

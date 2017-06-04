@@ -3,7 +3,7 @@
     import Contextualable from '../mixins/contextualable';
     export default{
         props : {
-
+            divider : {'default':false}
         },
         functional : true,
         mixins : [Contextualable,Themable],
@@ -21,7 +21,7 @@
                 obj['warning']=isset('warning');
                 obj['error']=isset('error');
                 const hasclass=obj.primary || obj.secondary || obj.success || obj.info || obj.warning || obj.error;
-                console.log(isset('light'));
+
                 if(!isset('dark')&&hasclass)
                     obj['white--text']=true;
                 else
@@ -29,10 +29,13 @@
                 return obj;
             }
 
-            return h('v-card-row',{
-                props:{'actions':true},
-                'class':getContextClasses()
-            },ctx.children);
+            ctx.props['actions']=true;
+            let data = {
+                props : ctx.props,
+                'class' : getContextClasses()
+            };
+            data=Object.assign(data,ctx.data);
+            return h('v-card-row',data,ctx.children);
         }
     }
 </script>

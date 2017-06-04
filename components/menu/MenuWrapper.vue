@@ -7,7 +7,12 @@
             title : String,
             offsetX: Boolean,
             offsetY: Boolean,
-            disabled: Boolean
+            disabled: Boolean,
+            left: Boolean,
+            right: Boolean,
+            top: Boolean,
+            bottom: Boolean,
+            origin : String
         },
         render(h){
             const menuProps=this.$props;
@@ -42,6 +47,7 @@
                 },this.title));
                 menuProps['offset-y']=true;
             }
+            console.log(menuProps);
             return h('v-menu',{
                 props:menuProps
             },items.concat(this.$slots.default));
