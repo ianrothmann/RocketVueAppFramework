@@ -25,6 +25,7 @@ Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
 Vue.component('rw-tabs', require('./components/tabs/TabsWrapper.vue'));
 Vue.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
 Vue.component('rw-card', require('./components/card/CardWrapper.vue'));
+Vue.component('rw-card-title', require('./components/card/CardTitleWrapper.vue'));
 Vue.component('rw-card-actions', require('./components/card/CardActionWrapper.vue'));
 Vue.component('rw-date', require('./components/datetime/DateWrapper.vue'));
 Vue.component('rw-datetime', require('./components/datetime/DateTimeWrapper.vue'));
