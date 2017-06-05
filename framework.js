@@ -33,6 +33,7 @@ Vue.component('rw-date', require('./components/datetime/DateWrapper.vue'));
 Vue.component('rw-datetime', require('./components/datetime/DateTimeWrapper.vue'));
 Vue.component('rw-time', require('./components/datetime/TimeWrapper.vue'));
 Vue.component('rw-nav-drawer', require('./components/navdrawer/NavDrawerWrapper.vue'));
+Vue.component('rw-multi-file', require('./components/upload/MultiFileUpload.vue'));
 
 
 export const AppFrameworkEventBus = new Vue({
