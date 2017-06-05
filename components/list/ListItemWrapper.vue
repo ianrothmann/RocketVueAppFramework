@@ -9,7 +9,9 @@
             iconEnd : String,//icon-end
             href : String,
             disabled : Boolean,
-            id : String
+            id : String,
+            avatar : String,
+            avatarEnd : Boolean
         },
         render(h){
 

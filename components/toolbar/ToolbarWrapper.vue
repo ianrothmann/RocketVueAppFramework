@@ -27,6 +27,7 @@
                     props : Object.assign({'icon':true},shade),
                     nativeOn : {
                         click : e => {
+                            e.stopPropagation();
                             this.$emit('side-icon-click',e);
                         }
                     }
