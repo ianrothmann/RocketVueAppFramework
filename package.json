@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/ianrothmann/RocketVueAppFramework#readme",
   "devDependencies": {
-    "vuetify": "^0.12.6",
+    "vuedraggable": "^2.11.0",
+    "vuetify": "^0.12.7",
     "moment": "^2.18.1"
   }
 }
