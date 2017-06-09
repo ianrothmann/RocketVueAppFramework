@@ -34,6 +34,12 @@ Vue.component('rw-datetime', require('./components/datetime/DateTimeWrapper.vue'
 Vue.component('rw-time', require('./components/datetime/TimeWrapper.vue'));
 Vue.component('rw-nav-drawer', require('./components/navdrawer/NavDrawerWrapper.vue'));
 Vue.component('rw-multi-file', require('./components/upload/MultiFileUpload.vue'));
+Vue.component('rw-alert', require('./components/alert/AlertWrapper.vue'));
+Vue.component('rw-chip', require('./components/chip/ChipWrapper.vue'));
+Vue.component('rw-pager', require('./components/pager/PagerWrapper.vue'));
+Vue.component('rw-slider', require('./components/slider/SliderWrapper.vue'));
+Vue.component('rw-subheader', require('./components/subheader/SubheaderWrapper.vue'));
+
 
 
 export const AppFrameworkEventBus = new Vue({

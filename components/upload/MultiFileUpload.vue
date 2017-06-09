@@ -1,7 +1,7 @@
 <template>
    <div @drop="drop($event)" @dragover="dragHover($event)" @dragleave="dragLeave($event)">
 
-           <input type="file" :accept="accept" :multiple="true" :disabled="disabled"
+           <input type="file" :accept="processedAccept" :multiple="true" :disabled="disabled"
                   ref="fileInput" @change="onFileChange">
 
            <v-list dense subheader v-if="files.length>0">
@@ -63,7 +63,7 @@
                            <v-icon class="grey lighten-3">library_add</v-icon>
                        </v-list-tile-avatar>
                        <v-list-tile-content>
-                           <v-list-tile-title>Add more files...</v-list-tile-title>
+                           <v-list-tile-title>Drop to add files... </v-list-tile-title>
                        </v-list-tile-content>
                    </v-list-tile>
                </v-list-item>
@@ -79,7 +79,7 @@
                    </v-list-tile>
                </v-list-item>
 
-               <v-list-item v-if="!globalError&&(!maxNumFiles || files.length <maxNumFiles) ">
+               <v-list-item v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) ">
                    <v-list-tile avatar class="no-drag" @click.native="onUploadClick()">
                        <v-list-tile-avatar>
                            <v-icon class="green--text text--lighten-1">add_circle</v-icon>
@@ -128,6 +128,7 @@
         -webkit-user-select: none;
         -ms-user-select: none;
     }
+
 </style>
 <script>
     import draggable from 'vuedraggable';
@@ -138,8 +139,7 @@
                 'default' : []
             },
             accept: {
-                type: String,
-                default: "*"
+                type: Array
             },
             label: {
                 type: String,
@@ -192,6 +192,17 @@
         computed:{
             processedLabel(){
                 return this.label + (this.reOrder&&this.files.length>0?' (drag to reorder)':'');
+            },
+            processedAccept(){
+                return !this.accept?'':this.accept.join(',');
+            },
+            formattedAccept(){
+                if(!this.accept)
+                    return '';
+
+                return this.accept.map((el)=>{
+                    return el.substring(el.lastIndexOf('/')+1);
+                }).join(', ');
             }
             /*
            imageFiles(){
@@ -228,6 +239,8 @@
                 this.$emit('reorder', this.files);
             },
             humanFileSize(size) {
+                if(size===0)
+                    return '0 B';
                 let i = Math.floor( Math.log(size) / Math.log(1024) );
                 return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
             },
@@ -252,23 +265,35 @@
                 }
             },
             validateFiles(files){
-                if(!this.maxNumFiles&&!this.maxFilesizeMb&&this.accept==='*')
+                const fileFilterActive=this.accept&&this.accept.length>0;
+
+                if(!this.maxNumFiles&&!this.maxFilesizeMb&&!fileFilterActive)
                     return true;
                 let cnt=0;
                 let result=true;
                 let exceededMaxFilesize=false;
+                let filesAccepted=true;
+
                 for (let file of files) {
                     cnt++;
                     if(this.maxFilesizeMb && file.size>this.maxFilesizeMb)
                         exceededMaxFilesize=true;
-                    console.log(file);
+
+                    if(fileFilterActive){
+                        if(this.accept.find(el=>el.toLowerCase()===file.type.toLowerCase())===undefined)
+                            filesAccepted=false;
+                    }
+
                 }
 
-                if(this.maxNumFiles&&(cnt+this.files.length)>=this.maxNumFiles){
+                if(this.maxNumFiles&&(cnt+this.files.length)>this.maxNumFiles){
                     this.maxNumFiles===1 ? this.globalError='Only one file is allowed' : this.globalError='Only '+ this.maxNumFiles+' file(s) are allowed.';
                     result=false;
                 }else if(exceededMaxFilesize){
                     this.globalError='Some files are larger than ' +  this.maxFilesizeMb + 'Mb.';
+                    result=false;
+                }else if(!filesAccepted){
+                    this.globalError='The following file types are accepted: ' +  this.formattedAccept;
                     result=false;
                 }
 
@@ -333,7 +358,7 @@
                 };
 
                 request.upload.addEventListener('progress', (e)=>{
-                    file_entry.progress=100*(e.loaded/e.total);
+                      file_entry.progress=100*(e.loaded/e.total);
                 }, false);
 
                 request.open('POST', this.url);
