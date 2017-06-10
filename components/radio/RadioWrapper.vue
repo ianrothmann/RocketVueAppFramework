@@ -20,6 +20,14 @@
         },
         watch : {
             error(){
+                this.createError();
+            }
+        },
+        mounted(){
+            this.createError();
+        },
+        methods : {
+            createError(){
                 if(this.error){
                     this.rules=[
                         () => this.errorText
