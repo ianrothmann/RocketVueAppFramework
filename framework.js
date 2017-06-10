@@ -39,6 +39,8 @@ Vue.component('rw-chip', require('./components/chip/ChipWrapper.vue'));
 Vue.component('rw-pager', require('./components/pager/PagerWrapper.vue'));
 Vue.component('rw-slider', require('./components/slider/SliderWrapper.vue'));
 Vue.component('rw-subheader', require('./components/subheader/SubheaderWrapper.vue'));
+Vue.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
+Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
 
 
 

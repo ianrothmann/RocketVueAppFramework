@@ -12,9 +12,10 @@
             xLarge: Boolean
         },
         render(h,c){
-            return h('v-icon',{
-              props:c.props
-          },c.children);
+            const data=c.data;
+            data['props']=c.props;
+
+            return h('v-icon',data,c.children);
         }
     }
 </script>
