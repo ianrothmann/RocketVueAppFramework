@@ -1,13 +1,16 @@
 <script>
     export default{
         props : {
-            title : {required:true},
-            icon : {},
-            id : {required:false},
-            active : {required:false}
+            length : Number,
+            value : Number,
+            disabled : Boolean
         },
-        render(h){
-          return h('v-card',{},[h('v-card-text',{},this.$slots.default)]);
+        functional : true,
+        render(h,c){
+          const data=c.data;
+          data['props']=c.props;
+
+          return h('v-pagination',data,c.children);
         }
     }
 </script>
