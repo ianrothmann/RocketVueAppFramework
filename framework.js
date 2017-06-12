@@ -1,9 +1,20 @@
 import Vue from 'vue';
 import {createPromiseHandler} from './common/promiseHandler'
 
-
+//VeeValidate
 import VeeValidate from 'vee-validate';
+VeeValidate.Validator.extend('min_array_length', {
+    getMessage: (field,args) => 'The ' + field + ' field requires at least '+args[0]+(args[0]==1?' item':' items')+'.',
+    validate: (value,args) => value.length>=args[0]
+});
+VeeValidate.Validator.extend('max_array_length', {
+    getMessage: (field,args) => 'The ' + field + ' field requires less than '+args[0]+(args[0]==1?' item':' items')+'.',
+    validate: (value,args) => value.length<=args[0]
+});
 Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
+//
+
+
 
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
 Vue.component('rw-container', require('./components/layout/ContainerWrapper.vue'));
@@ -58,6 +69,7 @@ export const AppFrameworkEventBus = new Vue({
 export const AppFramework = {};
 
 AppFramework.install = function (Vue, options) {
+
     Vue.prototype.$dialog = function (title, content, buttonObj) {
         let opt = {};
         opt.title = title;

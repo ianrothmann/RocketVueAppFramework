@@ -13,6 +13,7 @@
             months : Array,//renaming months
             days : Array,//renaming days
             landscape : Boolean,
+            noMargins : Boolean,
             allowedDates : [Array,Function,Object],
             allowBefore : [Date,String],
             allowAfter : [Date,String]
@@ -69,6 +70,11 @@
           if(this.inline){
               return h('div',{},[h('strong',{},this.label),datepicker]);
           }else{
+              const style = {};
+              if(this.noMargins){
+                style['margin']=0;
+              }
+
               const text=h('rw-input',{
                   slot : 'activator',
                   props : {
@@ -81,6 +87,7 @@
                       disabled : this.disabled,
                       persistentHint : this.hint!==undefined
                   },
+                  style,
                   on : {
                       input : e=>this.$emit('input',e),
                       focus : e => this.$emit('focus',e),
@@ -89,7 +96,6 @@
                   },
                   nativeOn : {
                       click : e=>this.$emit('click',e)
-
                   }
 
               });

@@ -51,8 +51,10 @@
                 props['rules']=this.rules;
 
                 if(this.$validator!==undefined&&this.name){
+
                     if(this.verrors.has(this.name)){
                         props['rules']=[()=>this.verrors.first(this.name)];
+                        props['error']=true;
                     }
                 }
 

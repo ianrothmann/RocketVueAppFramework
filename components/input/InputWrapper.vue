@@ -36,13 +36,7 @@
         },
         watch : {
            error(){
-               if(this.error){
-                   this.rules=[
-                       () => this.errorText
-                   ];
-               }else{
-                   this.rules=[];
-               }
+              this.assignError();
            }
         },
         computed:{
@@ -74,16 +68,27 @@
                 if(this.$validator!==undefined&&this.name){
                     if(this.verrors.has(this.name)){
                         props['rules']=[()=>this.verrors.first(this.name)];
+                        props['error']=true;
                     }
                 }
-
 
                 return props;
             }
         },
+        methods : {
+           assignError(){
+               if(this.error){
+                   this.rules=[
+                       () => this.errorText
+                   ];
+               }else{
+                   this.rules=[];
+               }
+           }
+        },
         inject: ['$validator'],
         mounted(){
-
+            this.assignError();
         },
         render(h){
 

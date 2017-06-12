@@ -79,6 +79,17 @@
                    </v-list-tile>
                </v-list-item>
 
+               <v-list-item v-if="validationError">
+                   <v-list-tile avatar class="error--text">
+                       <v-list-tile-avatar>
+                           <v-icon class="error--text">error</v-icon>
+                       </v-list-tile-avatar>
+                       <v-list-tile-content>
+                           <v-list-tile-title>{{validationError}}</v-list-tile-title>
+                       </v-list-tile-content>
+                   </v-list-tile>
+               </v-list-item>
+
                <v-list-item v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) ">
                    <v-list-tile avatar class="no-drag" @click.native="onUploadClick()">
                        <v-list-tile-avatar>
@@ -134,6 +145,7 @@
     import draggable from 'vuedraggable';
     export default{
         props : {
+            name : String,
             value: {
                 type: [Array],
                 'default' : []
@@ -171,11 +183,19 @@
         components: {
             draggable
         },
+        inject : ['$validator'],
         mounted(){
             this.files=this.value;
             this.$watch('value', (val)=>{
                 this.files=this.value;
             }, {deep: true});
+        },
+        updated(){
+            if(this.$validator!==undefined&&this.name){
+                if(this.verrors.has(this.name)){
+                    this.validationError=this.verrors.first(this.name);
+                }
+            }
         },
         data(){
             return {
@@ -186,6 +206,7 @@
                 delDialog : false,
                 delIndex : null,
                 dragHovering : false,
+                validationError : null,
                 globalError : null
             }
         },
@@ -258,6 +279,7 @@
             },
             onFileChange($event){
                 const files = $event.target.files || $event.dataTransfer.files;
+                this.validationError=null;
                 if(this.validateFiles(files)){
                     for (let file of files) {
                         this.upload(file);
