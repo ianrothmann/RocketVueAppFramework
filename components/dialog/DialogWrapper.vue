@@ -1,5 +1,5 @@
 <template>
-        <v-dialog :hide-overlay="true" :value="value" @input="showChanged($event)" :persistent="persistent">
+        <v-dialog :hide-overlay="hideOverlay" :value="value" @input="showChanged($event)" :persistent="persistent">
             <v-card>
                 <v-card-row>
                     <v-card-title v-html="title"></v-card-title>
@@ -27,7 +27,11 @@
             default : false
           },
           title : {required:true},
-          value : {}
+          value : {},
+          hideOverlay : {
+              type : Boolean,
+              default:false
+          }
         },
         methods : {
           showChanged(show){

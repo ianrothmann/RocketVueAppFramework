@@ -70,11 +70,12 @@ export const AppFramework = {};
 
 AppFramework.install = function (Vue, options) {
 
-    Vue.prototype.$dialog = function (title, content, buttonObj) {
+    Vue.prototype.$dialog = function (title, content, buttonObj, overlay) {
         let opt = {};
         opt.title = title;
         opt.content = content;
         opt.buttons = buttonObj;
+        opt.overlay = overlay;
         let promise = createPromiseHandler();
         opt.promise = promise;
         AppFrameworkEventBus.$emit('dialog',opt);

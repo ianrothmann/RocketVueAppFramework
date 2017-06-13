@@ -9,7 +9,7 @@
             <span class="grey--text--darken-3" v-html="loaderText" v-if="loaderText!=''"></span>
         </div>
 
-        <rw-dialog :title="dialogContent.title" v-model="showDialog" :persistent="true">
+        <rw-dialog :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
             <div v-html="dialogContent.content"></div>
             <div slot="actions">
                 <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
@@ -86,7 +86,8 @@ import {typeHelpers} from './mixins/general';
                     promiseHandler : null,
                     buttons : {},
                     value : '',
-                    placeholder : ''
+                    placeholder : '',
+                    hideOverlay : false
                 },
                  showLoader : false,
                  loaderText : ''
@@ -96,6 +97,7 @@ import {typeHelpers} from './mixins/general';
 
           AppFrameworkEventBus.$on('dialog',(opt)=>{
             this.dialogContent.title = opt.title;
+            this.dialogContent.hideOverlay = !opt.overlay;
             this.dialogContent.content = opt.content;
             this.dialogContent.promiseHandler = opt.promise;
             if(opt.buttons)
@@ -151,7 +153,7 @@ import {typeHelpers} from './mixins/general';
               setTimeout(()=>{
                 //Finish animation before resolving
                 this.dialogContent.promiseHandler.resolve(btn);
-              },200);
+              },400);
 
             },
         },
