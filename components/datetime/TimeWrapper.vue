@@ -32,7 +32,7 @@
                                   scope.cancel();
                               }
                           }
-                      },'Clear'),
+                      },'Cancel'),
                       h('v-btn',{
                           props:{flat:true,primary:true},
                           nativeOn : {

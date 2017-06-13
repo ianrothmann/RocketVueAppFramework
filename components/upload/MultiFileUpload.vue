@@ -189,13 +189,13 @@
             this.$watch('value', (val)=>{
                 this.files=this.value;
             }, {deep: true});
+
+        },
+        beforeUpdate(){
+            this.validate();
         },
         updated(){
-            if(this.$validator!==undefined&&this.name){
-                if(this.verrors.has(this.name)){
-                    this.validationError=this.verrors.first(this.name);
-                }
-            }
+           this.validate();
         },
         data(){
             return {
@@ -234,6 +234,13 @@
            */
         },
         methods : {
+            validate(){
+                if(this.$validator!==undefined&&this.name){
+                    if(this.verrors.has(this.name)){
+                        this.validationError=this.verrors.first(this.name);
+                    }
+                }
+            },
             drop(e){
                 this.dragLeave(e);
                 this.onFileChange(e);
