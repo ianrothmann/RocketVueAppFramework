@@ -21,20 +21,33 @@
         mixins : [Themable],
         render(h){
             const props=Object.assign({},this.$props);
-            const actions=[];
+            const scopedSlots={};
 
           if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
-              actions.push(
-                  h('template',{
-                      domProps: {scope:"{save , cancel}"}
-                      },[h('v-card-row',{
-                         props : {actions:true}
-                      },[
-                          h('v-btn',{props:{flat:true,primary:true}},'Cancel'),
-                          h('v-btn',{props:{flat:true,primary:true}},'Save'),
-                      ])]
-                  )
-              );
+              scopedSlots['default']=(scope)=>{
+
+                  return h('v-card-row',{
+                      props : {actions:true}
+                  },[
+                      h('v-btn',{
+                          props:{flat:true,secondary:true},
+                          nativeOn : {
+                              click : ()=>{
+                                  scope.cancel();
+                              }
+                          }
+                      },'Clear'),
+                      h('v-btn',{
+                          props:{flat:true,primary:true},
+                          nativeOn : {
+                              click : ()=>{
+                                  scope.save();
+                              }
+                          }
+                      },'Save'),
+                  ]);
+              };
+
               props['scrollable'] = true;
           }
 
@@ -63,8 +76,9 @@
               props,
               on : {
                   input : e=>this.$emit('input',e)
-              }
-          },actions);
+              },
+              scopedSlots
+          },[]);
 
 
           if(this.inline){

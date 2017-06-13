@@ -25,43 +25,60 @@
         mixins : [Themable],
         data(){
           return {
-              innerDate : null,
-              innerTime : null,
+              innerValue : null,
           }
         },
         watch:{
            value(){
-             this.populateInnerValues();
+             this.populateInnerValue();
            }
         },
         mounted(){
-            this.populateInnerValues();
+            this.populateInnerValue();
+        },
+        computed : {
+           dateValue(){
+               return this.innerValue===null?null:this.innerValue.format("YYYY-MM-DD");
+           },
+           timeValue(){
+               return this.innerValue===null?null:this.innerValue.format("h:mm a");
+           },
         },
         methods : {
-           populateInnerValues(){
-               if(this.value!=null){
-                   const dt=moment(this.value,"YYYY-MM-DD kk:mm:ss");
-                   this.innerDate=dt.format("YYYY-MM-DD");
-                   this.innerTime=dt.format("h:mm a");
+           populateInnerValue(){
+               if(this.value!=null)
+                   this.innerValue=moment(this.value,"YYYY-MM-DD h:mm");
+               else
+                   this.innerValue=null;
+           },
+           dateChanged(date){
+               console.log(date);
+               if(date===null){
+                   this.innerValue=null;
+               }else if(this.innerValue===null){
+                   this.innerValue=moment(date,"YYYY-MM-DD h:mm a");
                }else{
-                   this.innerDate=null;
-                   this.innerTime=null;
+                   this.innerValue=moment(date + " " + this.innerValue.format("h:mm a"),"YYYY-MM-DD h:mm a");
                }
 
+               this.$emit('input',this.innerValue.format("YYYY-MM-DD h:mm"))
            },
-           emitFullDate(){
-              if(this.innerDate!==null&&this.innerTime!==null){
-                  const dt=moment(this.innerDate + ' ' + this.innerTime,"YYYY-MM-DD h:mm a").format("YYYY-MM-DD kk:mm:ss");
-                  this.$emit('input',dt);
-              }
+           timeChanged(time){
+               if(this.innerValue===null){
+                   this.innerValue=moment(moment().format("YYYY-MM-DD")+" "+time,"YYYY-MM-DD h:mm a");
+               }else{
+                   this.innerValue=moment(this.innerValue.format("YYYY-MM-DD")+" "+time,"YYYY-MM-DD h:mm a");
+               }
+
+               this.$emit('input',this.innerValue.format("YYYY-MM-DD kk:mm:ss"))
            }
         },
         render(h){
             const dateProps=Object.assign({},this.$props);
             const timeProps=Object.assign({},this.$props);
 
-            dateProps['value']=this.innerDate;
-            timeProps['value']=this.innerTime;
+            dateProps['value']=this.dateValue;
+            timeProps['value']=this.timeValue;
 
             dateProps['label']=this.dateLabel || 'Date';
             timeProps['label']=this.timeLabel || 'Time';
@@ -78,10 +95,7 @@
             const datepicker=h('rw-date',{
                 props:dateProps,
                 on : {
-                    input : e=>{
-                        this.innerDate=e;
-                        this.emitFullDate();
-                    }
+                    input : e=>this.dateChanged(e)
                 },
                 style
             },'');
@@ -89,10 +103,7 @@
             const timepicker=h('rw-time',{
                 props:timeProps,
                 on : {
-                    input : e=>{
-                        this.innerTime=e;
-                        this.emitFullDate();
-                    }
+                    input : e=>this.timeChanged(e)
                 },
                 style
             },'');
