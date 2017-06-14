@@ -5,6 +5,7 @@
         functional : true,
         props : {
           title:String,
+          titleIcon:String,
           hover:Boolean,
           raised:Boolean,
           horizontal:Boolean,
@@ -69,7 +70,11 @@
            });
 
            if(ctx.props.title!==undefined&&titleChildren.length===0){
-               cardTitle=h('v-card-title',{},[h('span',{},ctx.props.title),h('v-spacer'),titleChildren]);
+               let titleIcon=null;
+               if(ctx.props.titleIcon!==undefined){
+                   titleIcon=h('v-icon',{'class':['mr-3'].concat(contextClasses)},ctx.props.titleIcon);
+               }
+               cardTitle=h('v-card-title',{},[titleIcon,h('span',{},ctx.props.title),h('v-spacer'),titleChildren]);
                if(!isset('fill')){
                    cardTitle=h('v-card-row',{'class':contextClasses},[cardTitle]);
                }
