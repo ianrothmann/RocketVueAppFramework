@@ -16,8 +16,8 @@
                    h('v-list-tile-action',{},[h('v-icon',{},'keyboard_arrow_down')])
                ];
 
-               if(this.icon){
-                   ownContent.unshift(h('v-list-tile-action',{},[h('v-icon',{},this.icon)]));
+               if(props.icon){
+                   ownContent.unshift(h('v-list-tile-action',{},[h('v-icon',{},props.icon)]));
                }
                let value=false;
                const items=[];

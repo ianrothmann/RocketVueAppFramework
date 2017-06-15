@@ -3,9 +3,9 @@
 
            <input type="file" :accept="processedAccept" :multiple="true" :disabled="disabled"
                   ref="fileInput" @change="onFileChange">
-
+       <rw-subheader v-html="processedLabel" trim></rw-subheader>
            <v-list dense subheader v-if="files.length>0">
-               <v-subheader v-html="processedLabel"></v-subheader>
+
                <draggable :list="files" :options="{animation:50, disabled:!reOrder}" @start="startReorder($event)" @end="updateOrder()">
                    <v-list-item v-for="(file,index) in files" :key="file.originalfilename">
                        <v-list-tile avatar :disabled="file.deleting||reorderActive" :class="{'no-drag':!reOrder}">
@@ -56,7 +56,6 @@
                </draggable>
            </v-list>
            <v-list dense>
-               <v-subheader v-html="processedLabel" v-if="files.length===0"></v-subheader>
                <v-list-item v-if="dragHovering">
                    <v-list-tile avatar class="grey lighten-3">
                        <v-list-tile-avatar>

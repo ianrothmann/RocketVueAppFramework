@@ -5,8 +5,8 @@
         mixins : [Contextualable,Themeable],
         props : {
             indeterminate: Boolean,
-            falseValue: String,
-            trueValue: String,
+            falseValue: {type:[String,Number]},
+            trueValue: {type:[String,Number]},
             value : {},
             label : String,
             name : String,

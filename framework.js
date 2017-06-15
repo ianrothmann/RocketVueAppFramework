@@ -31,6 +31,8 @@ Vue.component('rw-list-header', require('./components/list/ListHeaderWrapper.vue
 Vue.component('rw-list-item', require('./components/list/ListItemWrapper.vue'));
 Vue.component('rw-input', require('./components/input/InputWrapper.vue'));
 Vue.component('rw-radio', require('./components/radio/RadioWrapper.vue'));
+Vue.component('rw-radio-group', require('./components/radio/RadioGroupWrapper.vue'));
+Vue.component('rw-multi-group', require('./components/checkbox/MultiGroupWrapper.vue'));
 Vue.component('rw-checkbox', require('./components/checkbox/CheckboxWrapper.vue'));
 Vue.component('rw-switch', require('./components/switch/SwitchWrapper.vue'));
 Vue.component('rw-select', require('./components/select/SelectWrapper.vue'));
