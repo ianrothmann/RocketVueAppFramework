@@ -184,9 +184,9 @@
         },
         inject : ['$validator'],
         mounted(){
-            this.files=this.value;
+            this.files=this.value || [];
             this.$watch('value', (val)=>{
-                this.files=this.value;
+                this.files=this.value || [];
             }, {deep: true});
 
         },

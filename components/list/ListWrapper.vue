@@ -46,6 +46,32 @@
            },
            renderItem(h,node,lastItem){
                let props =  node.componentOptions.propsData;
+
+               const listeners=Object.assign({}, node.componentOptions.listeners);
+
+               let value=false;
+               if(props['id']!==undefined){
+                   if(props['id']==this.value)
+                       value=true;
+
+                   listeners['click']=(e)=>{
+                       this.$emit('input',props['id']);
+                       if(node.componentOptions['listeners']&&node.componentOptions.listeners.hasOwnProperty('click'))
+                           node.componentOptions.listeners.click(e);
+                   };
+               }
+
+               if(props.custom!==undefined){
+                   return h('v-list-item',{
+                       on: listeners,
+                   },[h('v-list-tile',{
+                       props : {
+                           ripple : false,
+                           disabled : props['disabled'],
+                       }
+                   },[h('v-list-tile-content',{},node.componentOptions.children)])]);
+               }
+
                const content=[
                    h('v-list-tile-title',{},props.title),
                    h('v-list-tile-sub-title',{},node.componentOptions.children)
@@ -61,13 +87,20 @@
                        ]));
                }
 
-               const action=[];
+               let action=[];
+               let actionText=null;
+               if(props.actionText!==undefined&&props.actionText!=''){
+                   actionText=h('v-list-tile-action-text',{},props.actionText);
+               }
                if(props.icon!==undefined){
                    action.push(
-                       h('v-icon',{},props.icon),
+                       h('v-icon',{
+                          'class':props.iconClass
+                       },props.icon),
                    );
 
                    if(props.iconEnd!==undefined||(props.avatar!==undefined&&props.avatarEnd===undefined)){
+                       action.unshift(actionText);
                        final=[
                            avatar,
                            h('v-list-tile-content',{},content),
@@ -75,38 +108,49 @@
 
                        ]
                    }else{
-                       final=[
-                           h('v-list-tile-action',{},action),
-                           h('v-list-tile-content',{},content),
-                           avatar
-                       ]
+
+                       if(actionText!==null)
+                           actionText=h('v-list-tile-action',{},[actionText]);
+
+                       if(avatar.length===0){
+                           final=[
+                               h('v-list-tile-avatar',{},action),
+                               h('v-list-tile-content',{},content),
+                               actionText,
+                               avatar
+                           ]
+                       }else{
+                           final=[
+                               h('v-list-tile-action',{},action),
+                               h('v-list-tile-content',{},content),
+                               actionText,
+                               avatar
+                           ]
+                       }
+
                    }
                }else if(props.avatarEnd!==undefined){
+                   if(actionText!==null)
+                       actionText=h('v-list-tile-action',{},[actionText]);
+
                    final=[
                        h('v-list-tile-content',{},content),
+                       actionText,
                        avatar
                    ]
                }else{
+                   if(actionText!==null)
+                       actionText=h('v-list-tile-action',{},[actionText]);
+
                    final=[
                        avatar,
-                       h('v-list-tile-content',{},content)
+                       h('v-list-tile-content',{},content),
+                       actionText
                    ]
                }
 
 
-               const listeners=Object.assign({}, node.componentOptions.listeners);
 
-               let value=false;
-               if(props['id']!==undefined){
-                 if(props['id']==this.value)
-                     value=true;
-
-                 listeners['click']=(e)=>{
-                     this.$emit('input',props['id']);
-                     if(node.componentOptions['listeners']&&node.componentOptions.listeners.hasOwnProperty('click'))
-                         node.componentOptions.listeners.click(e);
-                 };
-               }
 
                return h('v-list-item',{
                    on: listeners,
@@ -127,7 +171,15 @@
            renderDivider(h,node){
              let data={};
              if(node!==null)
-                 data=node.data;
+                 data=node.data||{};
+          /*   if(!data.hasOwnProperty('props'))
+                 data['props']={};
+
+             if(!data.props.hasOwnProperty('inset'))
+                   data['props']={};
+             data['props']={'inset':true};
+             //TODO sort out insets
+             */
              return h('v-divider', data,'');
            }
         },
@@ -183,3 +235,8 @@
         }
     }
 </script>
+<style>
+    .list__item .input-group .input-group__input input{
+        height : 48px!important; /* to support text inputs in lists */
+    }
+</style>

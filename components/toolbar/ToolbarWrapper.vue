@@ -43,6 +43,7 @@
               props
           },items.concat(
               [h('v-toolbar-items',{},this.$slots.default)]
+
           ));
         }
     }

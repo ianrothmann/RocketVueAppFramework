@@ -4,6 +4,7 @@
             value : String,
             label : String,
             hint : String,
+            placeholder : String,
             error : Boolean,
             errorText : String,
             id : {required:false},

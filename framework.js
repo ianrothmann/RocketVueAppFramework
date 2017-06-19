@@ -3,6 +3,7 @@ import {createPromiseHandler} from './common/promiseHandler'
 
 //VeeValidate
 import VeeValidate from 'vee-validate';
+import moment from "moment";
 VeeValidate.Validator.extend('min_array_length', {
     getMessage: (field,args) => 'The ' + field + ' field requires at least '+args[0]+(args[0]==1?' item':' items')+'.',
     validate: (value,args) => value.length>=args[0]
@@ -52,6 +53,7 @@ Vue.component('rw-chip', require('./components/chip/ChipWrapper.vue'));
 Vue.component('rw-pager', require('./components/pager/PagerWrapper.vue'));
 Vue.component('rw-slider', require('./components/slider/SliderWrapper.vue'));
 Vue.component('rw-subheader', require('./components/subheader/SubheaderWrapper.vue'));
+Vue.component('rw-label', require('./components/label/LabelWrapper.vue'));
 Vue.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
 
@@ -113,6 +115,21 @@ AppFramework.install = function (Vue, options) {
     Vue.prototype.$removeactivity = function (id) {
         AppFrameworkEventBus.$emit('remove_activity',id);
     };
+
+
+    Vue.filter('rdate', function(dateString,format_type) {
+
+        let date = moment(dateString, 'YYYY-MM-DD HH:mm:ss' , true);
+        if(format_type==='compact'){
+            return date.format("D MMM 'YY");
+        }else if(format_type==='ago'){
+            return date.fromNow();
+        }else if(format_type==='to'){
+            return date.toNow();
+        }else if(format_type==='auto'){
+            return date.calendar(null,{sameElse:'D MMM YY'});
+        }
+    });
 
 };
 
