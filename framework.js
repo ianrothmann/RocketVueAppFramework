@@ -120,8 +120,17 @@ AppFramework.install = function (Vue, options) {
     Vue.filter('rdate', function(dateString,format_type) {
 
         let date = moment(dateString, 'YYYY-MM-DD HH:mm:ss' , true);
-        if(format_type==='compact'){
+
+        if(format_type==='compactdate'){
             return date.format("D MMM 'YY");
+        }else if(format_type==='date'){
+            return date.format("D MMMM YYYY");
+        }else if(format_type==='time'){
+            return date.format("h:mma");
+        }else if(format_type==='datetime'){
+            return date.format("D MMMM YYYY, h:mma");
+        }else if(format_type==='compactdatetime'){
+            return date.format("D MMM 'YY, h:mma");
         }else if(format_type==='ago'){
             return date.fromNow();
         }else if(format_type==='to'){
