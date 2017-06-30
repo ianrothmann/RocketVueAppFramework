@@ -34,13 +34,14 @@
               }else if(c.props.decimals!==undefined){
                   children=Number(value).toFixed(c.props.decimals);
               }else if(c.props.file!==undefined){
-                  if(c.props.file==='file'){
+
+                  if(c.props.file==='file'&&value&&value.hasOwnProperty(c.props.fileUrlCol)){
                       children=[h('a',{
                           attrs : {
                               href : value[c.props.fileUrlCol]
                           }
                       },value[c.props.fileNameCol])];
-                  }else if(c.props.file==='image'){
+                  }else if(c.props.file==='image'&&value&&value.hasOwnProperty(c.props.fileUrlCol)){
                       children=[h('v-carousel-item',{
                           props : {
                               src : value[c.props.fileUrlCol]
@@ -80,6 +81,7 @@
                       }
                   }
               }else{
+
                   children=renderValue(c.props.value);
               }
               if(children!==null)
@@ -93,6 +95,7 @@
 
           if(children.length===0){
             children=[c.props.placeholder];
+
             isPlaceholder=true;
           }
 

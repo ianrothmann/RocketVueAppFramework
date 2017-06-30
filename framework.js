@@ -121,8 +121,12 @@ AppFramework.install = function (Vue, options) {
 
         let date = moment(dateString, 'YYYY-MM-DD HH:mm:ss' , true);
 
-        if(format_type==='compactdate'){
+        if(!date.isValid()){
+            return null;
+        }else if(format_type==='compactdate'){
             return date.format("D MMM 'YY");
+        }else if(format_type==='dbdate'){
+            return date.format("YYYY-MM-DD");
         }else if(format_type==='date'){
             return date.format("D MMMM YYYY");
         }else if(format_type==='time'){
@@ -130,7 +134,7 @@ AppFramework.install = function (Vue, options) {
         }else if(format_type==='datetime'){
             return date.format("D MMMM YYYY, h:mma");
         }else if(format_type==='compactdatetime'){
-            return date.format("D MMM 'YY, h:mma");
+            return date.format("D MMM YY, h:mma");
         }else if(format_type==='ago'){
             return date.fromNow();
         }else if(format_type==='to'){
@@ -138,6 +142,15 @@ AppFramework.install = function (Vue, options) {
         }else if(format_type==='auto'){
             return date.calendar(null,{sameElse:'D MMM YY'});
         }
+    });
+
+    Vue.filter('rwtime', function(dateString) {
+        let date = moment(dateString, 'h:mma' , true);
+        if(!date.isValid()){
+            return null;
+        }
+        return date.format("YYYY-MM-DD HH:mm:ss");
+
     });
 
 };

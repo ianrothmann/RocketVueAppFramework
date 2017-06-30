@@ -15,6 +15,7 @@
             floating: Boolean,
             icon: String,
             large: Boolean,
+            disabled: Boolean,
             loading: Boolean,
             outline: Boolean,
             ripple: {
@@ -44,6 +45,9 @@
 
           let data=context.data;
           data['props']=props;
+          if(data['props'].disabled)
+              data['props']['dark']=true;
+
           return h('v-btn',data,content);
         }
     }

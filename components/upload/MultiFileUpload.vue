@@ -147,7 +147,7 @@
             name : String,
             value: {
                 type: [Array],
-                'default' : []
+                'default' : () => []
             },
             accept: {
                 type: Array
@@ -366,13 +366,13 @@
                             };
                         }
 
-
                         if(resp['status']==='error'){
                             file_entry.error=resp['data'];
                             setTimeout(()=>{
-                                this.removeFileFromList(file);
+                                this.removeFileFromList(file_entry);
                             },5000);
                         }else{
+                            Object.assign(file_entry,resp);
                             file_entry.uploading=false;
                             file_entry.url=resp.url;
                             if(resp.thumbnail)
