@@ -41,6 +41,9 @@
         render(h){
           const props=Object.assign({},this.$props);
           props['inputValue']=this.value;
+          if(typeof props['inputValue'] === 'number'){
+              props['inputValue']=props['inputValue']>0;
+          }
 
           props['value']=props['trueValue'];
 
