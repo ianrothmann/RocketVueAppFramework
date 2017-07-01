@@ -237,8 +237,10 @@
                 if(this.$validator!==undefined&&this.name){
                     if(this.verrors.has(this.name)){
                         this.validationError=this.verrors.first(this.name);
-                    }
+                    }else
+                        this.validationError=null;
                 }
+
             },
             drop(e){
                 this.dragLeave(e);
@@ -350,6 +352,7 @@
                 data.append('command', 'upload');
                 data.append('file', file);
                 data.append('name', file.name);
+                data.append('uploader', this.name);
                 data.append('_token', Laravel.csrfToken);
 
                 let request = new XMLHttpRequest();
@@ -377,7 +380,6 @@
                             file_entry.url=resp.url;
                             if(resp.thumbnail)
                                 file_entry.thumbnail=resp.thumbnail;
-
                             this.$emit('input', this.files);
                         }
 

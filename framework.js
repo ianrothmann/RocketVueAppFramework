@@ -127,6 +127,8 @@ AppFramework.install = function (Vue, options) {
             return date.format("D MMM 'YY");
         }else if(format_type==='dbdate'){
             return date.format("YYYY-MM-DD");
+        }else if(format_type==='dbdatetime'){
+            return date.format("YYYY-MM-DD HH:mm:ss");
         }else if(format_type==='date'){
             return date.format("D MMMM YYYY");
         }else if(format_type==='time'){
