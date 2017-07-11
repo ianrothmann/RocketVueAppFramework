@@ -26,7 +26,7 @@
           if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
               scopedSlots['default']=(scope)=>{
 
-                  return h('v-card-row',{
+                  return h('v-card-actions',{
                       props : {actions:true}
                   },[
                       h('v-btn',{

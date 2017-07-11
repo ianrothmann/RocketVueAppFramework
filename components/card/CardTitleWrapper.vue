@@ -22,16 +22,15 @@
                 obj['warning']=isset('warning');
                 obj['error']=isset('error');
                 const hasclass=obj.primary || obj.secondary || obj.success || obj.info || obj.warning || obj.error;
-                if(!isset('dark')&&hasclass)
+                if(!isset('light')&&hasclass)
                     obj['white--text']=true;
                 else
-                    obj['white--text']=isset('light');
+                    obj['white--text']=isset('dark');
                 return obj;
             }
 
             const contextClasses=getContextClasses();
-            const cardTitle=h('v-card-title',{},[h('span',{},c.props.title),h('v-spacer'),c.children]);
-            return h('v-card-row',Object.assign({'class':contextClasses},c.data),[cardTitle]);
+            return h('v-card-title',Object.assign({'class':contextClasses},c.data),[h('div',{class:'headline'},c.props.title),h('v-spacer'),c.children]);
 
         }
     }

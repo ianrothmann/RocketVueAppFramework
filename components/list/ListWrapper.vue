@@ -62,14 +62,14 @@
                }
 
                if(props.custom!==undefined){
-                   return h('v-list-item',{
-                       on: listeners,
-                   },[h('v-list-tile',{
+                   return h('v-list-tile',{
                        props : {
                            ripple : false,
                            disabled : props['disabled'],
-                       }
-                   },[h('v-list-tile-content',{},node.componentOptions.children)])]);
+
+                       },
+                       on: listeners,
+                   },[h('v-list-tile-content',{},node.componentOptions.children)]);
                }
 
                const content=[
@@ -150,19 +150,16 @@
                }
 
 
-
-
-               return h('v-list-item',{
-                   on: listeners,
-               },[h('v-list-tile',{
+               return h('v-list-tile',{
                    props : {
                        ripple : !this.noRipple,
                        href : props['href'],
                        disabled : props['disabled'],
                        avatar : props.avatar!==undefined,
                        value
-                   }
-               },final)]);
+                   },
+                   on: listeners,
+               },final);
 
            },
            renderHeader(h,node){

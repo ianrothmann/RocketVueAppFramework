@@ -2,14 +2,15 @@
     import Themable from '../mixins/themeable';
     import Contextualable from '../mixins/contextualable';
     export default{
-        props : {
-            divider : {'default':false}
-        },
+        name : 'title',
         functional : true,
+        props : {
+            title : String
+        },
         mixins : [Contextualable,Themable],
-        render(h,ctx){
+        render(h,c){
             function isset(val){
-                return ctx.props[val]!==undefined&&ctx.props[val];
+                return c.props[val]!==undefined&&c.props[val];
             }
 
             function getContextClasses(){
@@ -21,7 +22,6 @@
                 obj['warning']=isset('warning');
                 obj['error']=isset('error');
                 const hasclass=obj.primary || obj.secondary || obj.success || obj.info || obj.warning || obj.error;
-
                 if(!isset('dark')&&hasclass)
                     obj['white--text']=true;
                 else
@@ -29,13 +29,10 @@
                 return obj;
             }
 
-            ctx.props['actions']=true;
-            let data = {
-                props : ctx.props,
-                'class' : getContextClasses()
-            };
-            data=Object.assign(data,ctx.data);
-            return h('v-card-row',data,ctx.children);
+            const contextClasses=getContextClasses();
+            const cardTitle=h('v-card-title',{},[h('span',{},c.props.title),h('v-spacer'),c.children]);
+            return h('v-card-row',Object.assign({'class':contextClasses},c.data),[cardTitle]);
+
         }
     }
 </script>

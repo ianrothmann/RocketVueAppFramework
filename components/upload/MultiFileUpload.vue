@@ -7,8 +7,7 @@
            <v-list dense subheader v-if="files.length>0">
 
                <draggable :list="files" :options="{animation:50, disabled:!reOrder}" @start="startReorder($event)" @end="updateOrder()">
-                   <v-list-item v-for="(file,index) in files" :key="file.originalfilename">
-                       <v-list-tile avatar :disabled="file.deleting||reorderActive" :class="{'no-drag':!reOrder}">
+                       <v-list-tile v-for="(file,index) in files" :key="file.originalfilename" avatar :disabled="file.deleting||reorderActive" :class="{'no-drag':!reOrder}">
                            <v-list-tile-avatar  v-if="(file.uploading)||file.deleting">
                                <v-progress-circular v-if="file.deleting" indeterminate class="warning--text"></v-progress-circular>
                                <v-icon class="error--text" v-if="file.error">error</v-icon>
@@ -30,34 +29,25 @@
                                        <v-icon>more_vert</v-icon>
                                    </v-btn>
                                    <v-list>
-                                       <v-list-item v-if="isImage(file.mimetype)">
-                                           <v-list-tile @click.native="previewImage(index)">
+                                           <v-list-tile v-if="isImage(file.mimetype)" @click.native="previewImage(index)">
                                                <v-list-tile-title>Preview</v-list-tile-title>
-                                           </v-list-tile >
-                                       </v-list-item>
-                                       <v-list-item>
+                                           </v-list-tile>
                                            <v-list-tile @click.native="downloadFile(file.url)">
                                                <v-list-tile-title>Download</v-list-tile-title>
-                                           </v-list-tile >
-                                       </v-list-item>
-                                       <v-list-item>
+                                           </v-list-tile>
                                            <v-list-tile @click.native="confirmDelete(index,$event)">
                                                <v-list-tile-title>Delete</v-list-tile-title>
                                            </v-list-tile>
-                                       </v-list-item>
                                    </v-list>
                                </v-menu>
                            </v-list-tile-action>
                        </v-list-tile>
 
-                   </v-list-item>
-
 
                </draggable>
            </v-list>
            <v-list dense>
-               <v-list-item v-if="dragHovering">
-                   <v-list-tile avatar class="grey lighten-3">
+                   <v-list-tile v-if="dragHovering" avatar class="grey lighten-3">
                        <v-list-tile-avatar>
                            <v-icon class="grey lighten-3">library_add</v-icon>
                        </v-list-tile-avatar>
@@ -65,10 +55,8 @@
                            <v-list-tile-title>Drop to add files... </v-list-tile-title>
                        </v-list-tile-content>
                    </v-list-tile>
-               </v-list-item>
 
-               <v-list-item v-if="globalError">
-                   <v-list-tile avatar class="error--text">
+                   <v-list-tile v-if="globalError" avatar class="error--text">
                        <v-list-tile-avatar>
                            <v-icon class="error--text">error</v-icon>
                        </v-list-tile-avatar>
@@ -76,10 +64,8 @@
                            <v-list-tile-title>{{globalError}}</v-list-tile-title>
                        </v-list-tile-content>
                    </v-list-tile>
-               </v-list-item>
 
-               <v-list-item v-if="validationError">
-                   <v-list-tile avatar class="error--text">
+                   <v-list-tile v-if="validationError" avatar class="error--text">
                        <v-list-tile-avatar>
                            <v-icon class="error--text">error</v-icon>
                        </v-list-tile-avatar>
@@ -87,10 +73,8 @@
                            <v-list-tile-title>{{validationError}}</v-list-tile-title>
                        </v-list-tile-content>
                    </v-list-tile>
-               </v-list-item>
 
-               <v-list-item v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) ">
-                   <v-list-tile avatar class="no-drag" @click.native="onUploadClick()">
+                   <v-list-tile v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) " avatar class="no-drag" @click.native="onUploadClick()">
                        <v-list-tile-avatar>
                            <v-icon class="green--text text--lighten-1">add_circle</v-icon>
                        </v-list-tile-avatar>
@@ -98,23 +82,17 @@
                            <v-list-tile-title class="green--text">Click here to add (or drop files here)</v-list-tile-title>
                        </v-list-tile-content>
                    </v-list-tile>
-               </v-list-item>
            </v-list>
 
 
        <v-dialog v-show="delDialog" v-model="delDialog" persistent>
-           <v-card>
-               <v-card-row>
-                   <v-card-title>Are you sure?</v-card-title>
-               </v-card-row>
-               <v-card-row>
-                   <v-card-text>Are you sure that you want to delete <span v-if="delIndex!==null">{{files[delIndex].originalfilename}}</span>?</v-card-text>
-               </v-card-row>
-               <v-card-row actions>
+           <rw-card title="Are you sure?">
+               Are you sure that you want to delete <span v-if="delIndex!==null">{{files[delIndex].originalfilename}}</span>?
+               <rw-card-actions>
                    <v-btn class="info--text" flat="flat" @click.native="delDialog = false">Cancel</v-btn>
                    <v-btn class="warning--text" flat="flat" @click.native="deleteFile(delIndex)">OK</v-btn>
-               </v-card-row>
-           </v-card>
+               </rw-card-actions>
+           </rw-card>
        </v-dialog>
 
        <v-dialog v-if="lightboxDialog" width="70%" v-model="lightboxDialog">

@@ -2,11 +2,11 @@ export default {
     props: {
         dark: {
             type: Boolean,
-            default: false
+          //  default: false
         },
         light: {
             type: Boolean,
-            default: false
+          //  default: false
         }
     }
 }

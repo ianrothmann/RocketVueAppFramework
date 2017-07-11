@@ -2,13 +2,16 @@
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
     export default{
-        mixins : [Contextualable,Themeable],
+        mixins : [Contextualable],
         props : {
             value : {},
             label : String,
             name : String,
             error : Boolean,
             errorText : String,
+            light : Boolean,
+            dark : Boolean,
+            color:String
         },
         data(){
             return {

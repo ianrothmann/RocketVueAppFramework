@@ -16,7 +16,7 @@
             suffix: String,
             maxlength: [Number, String],
             light:Boolean,
-            dark:{type:Boolean,'default':true},
+            dark:{type:Boolean,'default':false},
             password:Boolean,
             date : Boolean,
             time : Boolean,

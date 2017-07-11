@@ -4,9 +4,11 @@ import {AppFrameworkEventBus} from '../../framework';
        props: {
             centered: {'default' : false},
             grow: {'default' : true},
-            light: {'default' : true},
             scrollBars: {'default' : false},
-            value: String
+            value: String,
+            dark:{'default' : true, type:Boolean},
+            light:Boolean,
+            sliderColor : String
         },
         data(){
             return{
@@ -58,12 +60,15 @@ import {AppFrameworkEventBus} from '../../framework';
 
           });
 
-          const tabsBar=[h('v-tabs-bar',{slot:'activators'},tabNodes.concat(h('v-tabs-slider')))];
+         const sliderProps = {
+             class : this.sliderColor || 'secondary'
+          };
+
+          const tabsBar=[h('v-tabs-bar',{slot:'activators'},tabNodes.concat(h('v-tabs-slider',sliderProps)))];
 
 
           let props=this.$props;
           props['icons']=icons;
-
           return h('v-tabs',{
             props:props,
             on : {

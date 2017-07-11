@@ -1,19 +1,11 @@
 <template>
         <v-dialog :hide-overlay="hideOverlay" :value="value" @input="showChanged($event)" :persistent="persistent">
-            <v-card>
-                <v-card-row>
-                    <v-card-title v-html="title"></v-card-title>
-                </v-card-row>
-                <v-card-row>
-                    <v-card-text>
-                        <slot></slot>
-                    </v-card-text>
-                </v-card-row>
-                <v-card-row actions>
+            <rw-card :title="title">
+                <slot></slot>
+                <rw-card-actions>
                     <slot name="actions"></slot>
-                </v-card-row>
-            </v-card>
-
+                </rw-card-actions>
+            </rw-card>
         </v-dialog>
 
 </template>

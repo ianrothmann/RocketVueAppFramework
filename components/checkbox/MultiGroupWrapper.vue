@@ -8,7 +8,10 @@
             label : String,
             name : String,
             error : Boolean,
+            color:String,
             errorText : String,
+            light : Boolean,
+            dark : Boolean
         },
         data(){
             return {

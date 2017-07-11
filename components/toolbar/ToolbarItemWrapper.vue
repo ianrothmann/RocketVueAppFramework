@@ -15,9 +15,9 @@
             }else{
                 props['light']=true;
             }
-
+            props['flat']=true;
             if(this.text){
-                return h('v-toolbar-item',{
+                return h('v-btn',{
                     props,
                     'class':{
                         'toolbar__item--active':this.active

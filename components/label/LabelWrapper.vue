@@ -12,6 +12,7 @@
             file : String,
             fileNameCol : {default:'originalfilename'},
             fileUrlCol : {default:'url'},
+            valueProp : String
         },
         functional : true,
         render(h,c){
@@ -26,6 +27,7 @@
           data.class['input-group--text-field']=true;
 
           function renderValue(value){
+
               let children=null;
               if(c.props.date!==undefined){
                   children=Vue.filter('rdate')(value,c.props.date);
@@ -56,7 +58,7 @@
               return children;
           }
 
-          let children=null;
+          let children=null;//
           if(c.props.value!==undefined){
               if(Array.isArray(c.props.value)){
                   if(c.props.value.length>0){
@@ -73,7 +75,12 @@
                       }else if(c.props.separator==='bullet'){
                           const bullets=[];
                           for(let val of c.props.value){
-                              bullets.push(h('li',{},renderValue(val)));
+                              if(c.props.valueProp){
+                                  bullets.push(h('li',{},renderValue(val[c.props.valueProp])));
+                              }else{
+                                  bullets.push(h('li',{},renderValue(val)));
+                              }
+
                           }
                           children=h('ul',{},bullets);
                       }else{
@@ -81,8 +88,17 @@
                       }
                   }
               }else{
+                  if(c.props.valueProp){
+                      if(typeof c.props.value==='object'){
 
-                  children=renderValue(c.props.value);
+                          children=renderValue(c.props.value[c.props.valueProp]);
+                      }else{
+                          children=renderValue(c.props.value);
+                      }
+                  }else{
+                      children=renderValue(c.props.value);
+                  }
+
               }
               if(children!==null)
                 children=[children];

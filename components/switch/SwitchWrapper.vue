@@ -2,7 +2,7 @@
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
     export default{
-        mixins : [Contextualable,Themeable],
+        mixins : [Contextualable],
         props : {
             indeterminate: Boolean,
             falseValue: String,
@@ -12,6 +12,9 @@
             name : String,
             error : Boolean,
             errorText : String,
+            color:String,
+            light : Boolean,
+            dark : Boolean
         },
         data(){
             return {
@@ -54,6 +57,8 @@
           }else{
               props['rules']=this.rules;
           }
+            if(!props.color)
+                props['color']=this.getColorProperty();
 
           return h('v-switch',{
               props,

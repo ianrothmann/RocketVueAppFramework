@@ -38,61 +38,64 @@
            }
 
            let cardClasses={};
-           let cardTitle=null;
-           let cardInner;
-
            const contextClasses=getContextClasses();
 
            if(isset('fill')){
                cardClasses=Object.assign(cardClasses,contextClasses);
            }
 
-           const titleChildren=[];
-           const innerChildren=[];
-           const actionChilden=[];
+            const titleChildren=[];
+            const innerChildren=[];
+            const actionChildren=[];
 
-           ctx.children.forEach((node)=>{
+            if(ctx.children){
+                ctx.children.forEach((node)=>{
 
-               if(node.tag){
-                   if(node.functionalOptions && node.functionalOptions.name==='title'){
-                       titleChildren.push(node);
-                   }else if(node.data && node.data.ref==='actions'){
-                       if(node.data.props['divider']!==false)
-                        actionChilden.push(h('v-divider'));
+                    if(node.tag){
+                        if(node.functionalOptions && node.functionalOptions.name==='title'){
+                            titleChildren.push(node);
+                        }else if(node.data && node.functionalOptions && node.functionalOptions.name==='actions'){
+                            if(node.data.props['divider']!==false)
+                                actionChildren.push(h('v-divider'));
 
-                       actionChilden.push(node);
-                   }else{
-                       innerChildren.push(node);
+                            actionChildren.push(node);
+                        }else{
+                            innerChildren.push(node);
+                        }
+                    }else{
+                        innerChildren.push(node);
+                    }
+                });
+            }
+
+           let cardMedia=null;
+           if(ctx.props.img){
+               cardMedia=h('v-card-media',{
+                 props : {
+                     src : ctx.props.img,
+                     height : ctx.props.imgHeight,
+                     contain: ctx.props.horizontal
+                 }
+               });
+           }
+
+           let cardTitle=null;
+           if(ctx.props.title&&titleChildren.length===0){
+               titleChildren.push(
+                 h('div',{},[h('div',{class:['headline']},ctx.props.title)])
+               );
+               cardTitle=h('v-card-title',{
+                   props:{
+                       primaryTitle : true
                    }
-               }else{
-                   innerChildren.push(node);
-               }
-           });
-
-           if(ctx.props.title!==undefined&&titleChildren.length===0){
-               let titleIcon=null;
-               if(ctx.props.titleIcon!==undefined){
-                   titleIcon=h('v-icon',{'class':['mr-3'].concat(contextClasses)},ctx.props.titleIcon);
-               }
-               cardTitle=h('v-card-title',{},[titleIcon,h('span',{},ctx.props.title),h('v-spacer'),titleChildren]);
-               if(!isset('fill')){
-                   cardTitle=h('v-card-row',{'class':contextClasses},[cardTitle]);
-               }
+               },titleChildren);
            }else{
                cardTitle=titleChildren;
            }
 
-           cardInner=h('v-card-text',{},innerChildren);
 
-           let cardImg=null;
-           if(isset('img')){
-               cardImg=h('v-card-row',{
-                   props : {
-                       img:ctx.props.img,
-                       height:ctx.props.imgHeight
-                   }
-               });
-           }
+
+            const cardContent=h('v-card-text',{},innerChildren);
 
             let data={
                 props:{
@@ -102,18 +105,9 @@
                 },
                 'class' : cardClasses
             };
+
             data=Object.assign(data,ctx.data);
-
-            if(data.props.horizontal){
-                if(ctx.props.imgRight){
-                    return h('v-card',data,[h('v-card-column',{},[cardInner,actionChilden]),cardImg]);
-                }else{
-                    return h('v-card',data,[cardImg,h('v-card-column',{},[cardInner,actionChilden])]);
-                }
-
-            }else{
-                return h('v-card',data,[cardTitle,cardImg,cardInner,actionChilden]);
-            }
+            return h('v-card',data,[cardMedia,cardTitle,cardContent,actionChildren]);
 
 
 

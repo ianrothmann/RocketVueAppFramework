@@ -2,6 +2,7 @@
     import Themable from '../mixins/themeable';
     import Contextualable from '../mixins/contextualable';
     export default{
+        name : 'actions',
         props : {
             divider : {'default':false}
         },
@@ -35,7 +36,7 @@
                 'class' : getContextClasses()
             };
             data=Object.assign(data,ctx.data);
-            return h('v-card-row',data,ctx.children);
+            return h('v-card-actions',data,ctx.children);
         }
     }
 </script>
