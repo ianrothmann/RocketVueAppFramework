@@ -68,7 +68,7 @@
                            disabled : props['disabled'],
 
                        },
-                       on: listeners,
+                       nativeOn: listeners,
                    },[h('v-list-tile-content',{},node.componentOptions.children)]);
                }
 
@@ -158,7 +158,7 @@
                        avatar : props.avatar!==undefined,
                        value
                    },
-                   on: listeners,
+                   nativeOn: listeners,
                },final);
 
            },

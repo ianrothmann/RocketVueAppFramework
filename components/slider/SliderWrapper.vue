@@ -12,7 +12,7 @@
             },
             step: {
                 type: [Number, String],
-                default: 1
+                default: 0
             },
             thumbLabel: Boolean,
             value: [Number, String],
@@ -52,6 +52,9 @@
         inject: ['$validator'],
         render(h){
             const props=Object.assign({},this.$props);
+            if(this.step && this.step>1){
+                props['snap']=true;
+            }
 
             if(this.$validator!==undefined&&this.name){
                 if(this.verrors.has(this.name)){

@@ -13,7 +13,7 @@
             id : {required:false},
             name : {required:false},
             light:Boolean,
-            dark:{type:Boolean,'default':true},
+            dark:Boolean,
             persistentHint:Boolean,
             chips:Boolean,
             itemValue : String,

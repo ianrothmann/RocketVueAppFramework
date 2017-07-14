@@ -26,7 +26,8 @@
             multiline:Boolean,
             rows : Number,
             prependIcon : String,
-            appendIcon : String
+            appendIcon : String,
+            hideDetails : Boolean
 
         },
         data(){

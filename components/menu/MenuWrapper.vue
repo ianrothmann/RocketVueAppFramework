@@ -12,10 +12,12 @@
             right: Boolean,
             top: Boolean,
             bottom: Boolean,
-            origin : String
+            origin : String,
+            closeOnClick : {type:Boolean, default:true}
         },
         render(h){
-            const menuProps=this.$props;
+            const menuProps=Object.assign({},this.$props);
+
             let items=[];
             if(this.$slots.hasOwnProperty('activator')){
                 items.push(h('template',{slot:'activator'},this.$slots.activator));

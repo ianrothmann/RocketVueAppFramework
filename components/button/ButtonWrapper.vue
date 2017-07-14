@@ -13,6 +13,7 @@
             default: Boolean,
             flat: Boolean,
             floating: Boolean,
+            iconLeft: Boolean,
             icon: String,
             large: Boolean,
             disabled: Boolean,
@@ -37,16 +38,23 @@
           let props=context.props;
           let content;
           if(context.props.icon!==undefined){
-              content=[h('v-icon',{},context.props.icon)];
-              props['icon']=true;
+              if(context.props.iconLeft)
+                content=[h('v-icon',{},context.props.icon),context.children];
+              else
+                content=[context.children,h('v-icon',{props:{right:true}},context.props.icon)];
+
+              if(!context.children||context.children.length===0)
+                props['icon']=true;
+              else{
+                props['icon']=false;
+              }
           }else{
               content=context.children;
           }
 
           let data=context.data;
           data['props']=props;
-          if(data['props'].disabled)
-              data['props']['dark']=true;
+
 
           return h('v-btn',data,content);
         }
