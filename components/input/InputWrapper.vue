@@ -53,6 +53,7 @@
             },
             innerProps(){
                 let props=Object.assign({},this.$props);
+
                 props['rules']=this.rules;
                 props['max']=this.maxlength;
                 props['type']=this.inputType;
@@ -75,7 +76,22 @@
                 }
 
                 return props;
-            }
+            },
+            innerAttrs(){
+                const props={};
+
+                if(this.name)
+                    props.name=this.name;
+
+                if(this.id)
+                    props.id=this.id;
+
+                if(this.readonly)
+                    props.readonly=this.readonly;
+
+
+                return props;
+            },
         },
         methods : {
            assignError(){
@@ -96,6 +112,7 @@
 
           return h('v-text-field',{
               props : this.innerProps,
+              attrs : this.innerAttrs,
               on : {
                   input : e => this.$emit('input',e),
                   focus : e => this.$emit('focus',e),

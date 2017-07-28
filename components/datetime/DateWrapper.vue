@@ -31,16 +31,15 @@
                   },[
                       h('v-btn',{
                           props:{flat:true,secondary:true},
-                          nativeOn : {
+                          on : {
                               click : ()=>{
-                                  console.log(scope);
                                   scope.cancel();
                               }
                           }
                       },'Cancel'),
                       h('v-btn',{
                           props:{flat:true,primary:true},
-                          nativeOn : {
+                          on : {
                               click : ()=>{
                                   scope.save();
                               }
@@ -107,9 +106,7 @@
                       input : e=>this.$emit('input',e),
                       focus : e => this.$emit('focus',e),
                       blur : e => this.$emit('blur',e),
-                      change : e => this.$emit('change',e)
-                  },
-                  nativeOn : {
+                      change : e => this.$emit('change',e),
                       click : e=>this.$emit('click',e)
                   }
 

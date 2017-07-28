@@ -22,9 +22,9 @@
   "homepage": "https://github.com/ianrothmann/RocketVueAppFramework#readme",
   "devDependencies": {
     "vuedraggable": "^2.11.0",
-    "vuetify": "^0.13.1",
+    "vuetify": "^0.14.6",
     "moment": "^2.18.1",
     "vee-validate": "^2.0.0-rc.5",
-    "vue": "^2.3.4"
+    "vue": "^2.4.2"
   }
 }

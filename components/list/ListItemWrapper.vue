@@ -9,6 +9,7 @@
             iconEnd : String,//icon-end
             iconClass : {},
             href : String,
+            target : String,
             custom : Boolean,
             disabled : Boolean,
             id : String,

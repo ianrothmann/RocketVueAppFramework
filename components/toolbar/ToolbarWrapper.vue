@@ -38,7 +38,7 @@
             if(this.sideIcon){
                 items.push(h('v-toolbar-side-icon',{
                     props : Object.assign({'icon':true},shade),
-                    nativeOn : {
+                    on : {
                         click : e => {
                             e.stopPropagation();
                             this.$emit('side-icon-click',e);

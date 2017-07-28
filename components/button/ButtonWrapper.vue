@@ -32,16 +32,26 @@
             type: {
                 type: String,
                 default: 'button'
-            }
+            },
+            active : Boolean
         },
         render(h,context){
           let props=context.props;
           let content;
-          if(context.props.icon!==undefined){
+          if(context.props.icon!=undefined){
+              let iconData={
+                  props : {}
+              };
+
               if(context.props.iconLeft)
-                content=[h('v-icon',{},context.props.icon),context.children];
-              else
-                content=[context.children,h('v-icon',{props:{right:true}},context.props.icon)];
+                content=[h('v-icon',iconData,context.props.icon),context.children];
+              else{
+                  if(context.children&&context.children.length>0)
+                      iconData.props.right=true;
+
+                  content=[context.children,h('v-icon',iconData,context.props.icon)];
+              }
+
 
               if(!context.children||context.children.length===0)
                 props['icon']=true;
@@ -54,6 +64,11 @@
 
           let data=context.data;
           data['props']=props;
+
+          if(props.active){
+              data.class={};
+              data.class['btn--active']=true;
+          }
 
 
           return h('v-btn',data,content);

@@ -56,6 +56,8 @@ Vue.component('rw-subheader', require('./components/subheader/SubheaderWrapper.v
 Vue.component('rw-label', require('./components/label/LabelWrapper.vue'));
 Vue.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
+Vue.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
+Vue.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
 
 
 

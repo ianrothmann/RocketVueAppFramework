@@ -20,9 +20,11 @@
                    ownContent.unshift(h('v-list-tile-action',{},[h('v-icon',{},props.icon)]));
                }
                let value=false;
+
                const items=[];
                if(node.componentOptions.children){
                    node.componentOptions.children.forEach((child)=> {
+
                        if (child.tag !== undefined && child.tag.indexOf('rw-list-item') > -1) {
                            let props = child.componentOptions.propsData;
                            if(props['id']!==undefined&&props['id']==this.value)
@@ -51,8 +53,10 @@
 
                let value=false;
                if(props['id']!==undefined){
-                   if(props['id']==this.value)
+                   if(props['id']==this.value){
                        value=true;
+                   }
+
 
                    listeners['click']=(e)=>{
                        this.$emit('input',props['id']);
@@ -68,7 +72,7 @@
                            disabled : props['disabled'],
 
                        },
-                       nativeOn: listeners,
+                       on: listeners,
                    },[h('v-list-tile-content',{},node.componentOptions.children)]);
                }
 
@@ -92,7 +96,7 @@
                if(props.actionText!==undefined&&props.actionText!=''){
                    actionText=h('v-list-tile-action-text',{},props.actionText);
                }
-               if(props.icon!==undefined){
+               if(props.icon!=undefined){
                    action.push(
                        h('v-icon',{
                           'class':props.iconClass
@@ -149,7 +153,6 @@
                    ]
                }
 
-
                return h('v-list-tile',{
                    props : {
                        ripple : !this.noRipple,
@@ -158,7 +161,10 @@
                        avatar : props.avatar!==undefined,
                        value
                    },
-                   nativeOn: listeners,
+                   attrs : {
+                      target : props['target']
+                   },
+                   on: listeners,
                },final);
 
            },
