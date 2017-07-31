@@ -1,6 +1,6 @@
 {
   "name": "rocketvueappframework",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A series of Vue Components and Plugins that help speed up general app development. Currently implemented using Vuetify.",
   "main": "framework.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ianrothmann/RocketVueAppFramework#readme",
   "devDependencies": {
+    "s-grid-vue": "^0.1.1",
     "vuedraggable": "^2.11.0",
     "vuetify": "^0.14.6",
     "moment": "^2.18.1",
