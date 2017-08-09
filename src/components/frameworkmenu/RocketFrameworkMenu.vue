@@ -6,13 +6,15 @@
                 default : 'list'
             },
             menu : {
-                required:true,
-                type:Object
+                required:true
             }
         },
         computed:{
             items(){
-                return this.menu.items;
+                if(this.menu !== null && typeof this.menu === 'object')
+                 return this.menu.items;
+                else
+                 return {};
             },
             currentUrl(){
                 return location.hostname+location.pathname;
