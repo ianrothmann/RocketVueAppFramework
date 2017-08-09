@@ -2,11 +2,15 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-    entry: './src/framework.js',
+    entry: {
+        'framework': path.resolve(__dirname, '../src/framework.js'),
+        'vuebridge-sessionsnackbar' : path.resolve(__dirname, '../src/mixins/vuebridge-sessionsnackbar.js'),
+        'vue-resource-request-activity' : path.resolve(__dirname, '../src/plugins/vue-resource-request-activity.js')
+    },
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/dist/',
-        filename: 'framework.js',
+        filename: '[name].js',
         library: 'rocketvueappframework',
         libraryTarget: 'umd',
         umdNamedDefine: true
@@ -21,6 +25,11 @@ module.exports = {
         vuetify: 'vuetify',
 
     },
+    resolve: {
+        alias: {
+            "moment": "moment"
+        }
+    },
     module: {
         rules: [{
             test: /\.vue$/,
@@ -33,14 +42,14 @@ module.exports = {
     },
     plugins: [
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new webpack.IgnorePlugin(/moment$/),
+        //new webpack.IgnorePlugin(/moment$/),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false,
         }),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
-            include: /\.js$/,
+            include: /\.djs$/,
             compress: {
                 warnings: false
             }

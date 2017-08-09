@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import {createPromiseHandler} from './common/promiseHandler'
 
+import moment from "moment";
 //VeeValidate
 import VeeValidate from 'vee-validate';
-import moment from "moment";
+
 VeeValidate.Validator.extend('min_array_length', {
     getMessage: (field,args) => 'The ' + field + ' field requires at least '+args[0]+(args[0]==1?' item':' items')+'.',
     validate: (value,args) => value.length>=args[0]
@@ -14,7 +15,6 @@ VeeValidate.Validator.extend('max_array_length', {
 });
 Vue.use(VeeValidate, { errorBagName: 'verrors',inject: false });
 //
-
 
 
 Vue.component('rocket-app-framework', require('./AppFramework.vue'));
@@ -117,7 +117,6 @@ AppFramework.install = function (Vue, options) {
     Vue.prototype.$removeactivity = function (id) {
         AppFrameworkEventBus.$emit('remove_activity',id);
     };
-
 
     Vue.filter('rdate', function(dateString,format_type) {
 
