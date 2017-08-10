@@ -88,6 +88,20 @@ AppFramework.install = function (Vue, options) {
         return promise;
     };
 
+    Vue.prototype.$formDialog = function (title, content, definition, data, buttonObj, overlay) {
+        let opt = {};
+        opt.title = title;
+        opt.content = content;
+        opt.definition = definition;
+        opt.data = data;
+        opt.buttons = buttonObj;
+        opt.overlay = overlay;
+        let promise = createPromiseHandler();
+        opt.promise = promise;
+        AppFrameworkEventBus.$emit('formDialog',opt);
+        return promise;
+    };
+
     Vue.prototype.$snackbar = function (message, messagetype,vertical,horizontal,duration) {
         let opt = {};
         opt.message = message;

@@ -16,6 +16,14 @@
             </div>
         </rw-dialog>
 
+        <rw-dialog :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
+            <div v-html="formDialogContent.content"></div>
+            <rocket-form-renderer :definition="formDialogContent.definition" :value="formDialogContent.data" @valid="rocketFormValid($event)" @invalid="rocketFormInvalid($event)" :id="formDialogContent.id"></rocket-form-renderer>
+            <div slot="actions">
+                <v-btn v-for="(btn,key) in formDialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="formDialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
+            </div>
+        </rw-dialog>
+
 
         <v-snackbar
                 :timeout="snackbar.duration"
@@ -80,12 +88,23 @@ import {typeHelpers} from './mixins/general';
                 },
                 showSnackbar : false,
                 showDialog : false,
+                showFormDialog : false,
                 dialogContent : {
                     title : '',
                     content : ' ',
                     promiseHandler : null,
                     buttons : {},
                     value : '',
+                    placeholder : '',
+                    hideOverlay : false
+                },
+                formDialogContent : {
+                    title : '',
+                    promiseHandler : null,
+                    content : ' ',
+                    definition : [],
+                    data : {},
+                    buttons : {},
                     placeholder : '',
                     hideOverlay : false
                 },
@@ -107,6 +126,22 @@ import {typeHelpers} from './mixins/general';
             }
             this.showDialog=true;
           });
+
+          AppFrameworkEventBus.$on('formDialog',(opt)=>{
+                this.formDialogContent.title = opt.title;
+                this.formDialogContent.hideOverlay = !opt.overlay;
+                this.formDialogContent.content = opt.content;
+                this.formDialogContent.id = AppFrameworkEventBus.getUniqueID('rocket-framework-dialog-form');
+                this.formDialogContent.definition = opt.definition;
+                this.formDialogContent.data = opt.data;
+                this.formDialogContent.promiseHandler = opt.promise;
+                if(opt.buttons)
+                    this.formDialogContent.buttons = opt.buttons;
+                else{
+                    this.formDialogContent.buttons={save:{label : 'Save',validate:true,color:'primary'},cancel:{label:'Cancel', color:'secondary'}};
+                }
+                this.showFormDialog=true;
+            });
 
            AppFrameworkEventBus.$on('snackbar',(opt)=>{
              this.snackbar.message=opt.message;
@@ -156,6 +191,38 @@ import {typeHelpers} from './mixins/general';
               },400);
 
             },
+            formDialogButtonClicked(btn){
+                if(this.formDialogContent.buttons[btn].validate===true){
+                    this.formDialogContent.lastButton=btn;
+                    RocketEventHub.validate(this.formDialogContent.id);
+                }else{
+                    this.formDialogContent.title = '';
+                    this.formDialogContent.content = ' ';
+                    this.formDialogContent.definition = [];
+                    this.formDialogContent.data = {};
+                    this.showFormDialog=false;
+                    setTimeout(()=>{
+                        //Finish animation before resolving
+                        this.formDialogContent.promiseHandler.resolve({valid:false,btn});
+                    },400);
+                }
+            },
+            rocketFormValid(data){
+                this.formDialogContent.title = '';
+                this.formDialogContent.content = ' ';
+                this.formDialogContent.definition = [];
+                this.formDialogContent.data = {};
+                this.showFormDialog=false;
+                let btn=this.formDialogContent.lastButton;
+                this.formDialogContent.lastButton='';
+                setTimeout(()=>{
+                    //Finish animation before resolving
+                    this.formDialogContent.promiseHandler.resolve({valid:true,data,btn});
+                },400);
+            },
+            rocketFormInvalid(){
+                this.formDialogContent.lastButton='';
+            }
         },
         components:{
 
