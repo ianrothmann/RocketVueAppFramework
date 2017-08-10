@@ -77,6 +77,8 @@ Form dialogs display a rocket form renderer in a dialog. It receives the followi
    });
 ```
 
+Response is an object with `valid` (boolean), `btn` the key of the btn clicked and `data`, the returned valid form data. Data is not returned if the button does not `validate:true`.
+
 ## Loaders
 This displays an overlay with a Vuetify indeterminate circle progress at center screen.
 ```javascript
