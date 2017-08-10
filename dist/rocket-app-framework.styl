@@ -1,0 +1,15 @@
+
+#app{
+  visibility: hidden;
+  min-height: 100vh;
+  background-color: $background;
+}
+#app.init{
+  visibility: visible;
+  animation app_fadein 0.3s ease-in;
+}
+
+@keyframes app_fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
