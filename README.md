@@ -48,14 +48,18 @@ Form dialogs display a rocket form renderer in a dialog. It receives the followi
 * Dialog instructions
 * Rocket form renderer definition. Please refer to RocketFormRenderer in the RocketForm wiki,
 * Data object resembling the definition
+* Size in perc or pixels
+* Whether to hide the overlay (true to show the overlay)
 * Button object (optional) - **Very Important** The buttons that should trigger form validation should contain a key `validate:true`. By default the dialog will have save and cancel buttons.
-* Whether to hide the overlay
+
 
 ```javascript
+          const builder=this.$rf.builder;
+          
           let def=[
-                {type:'text',name:'name',label:'Name',validation:'required'},
-                {type:'text',name:'email',label:'Email address',validation:'required|email'},
-                {type:'text',name:'mobile',label:'Mobile',validation:'required'},
+                 builder.text('name','Name').withIcon('person'),
+                 builder.text('email','Email').withIcon('mail').withValidation('required|email'),
+                 builder.text('mobile','Mobile'),
             ];
 
             let data={
@@ -79,6 +83,14 @@ Form dialogs display a rocket form renderer in a dialog. It receives the followi
 
 Response is an object with `valid` (boolean), `btn` the key of the btn clicked and `data`, the returned valid form data. Data is not returned if the button does not `validate:true`.
 
+## Navigation
+This calls shows the top activity bar and calls `document.location`.
+
+```javascript
+this.$navigate('url here');
+```
+
+
 ## Loaders
 This displays an overlay with a Vuetify indeterminate circle progress at center screen.
 ```javascript
@@ -101,6 +113,19 @@ this.$addactivity(id);
 this.$removeactivity(id);
 ```
 This will display an indeterminate progress bar at the top of the screen. You should add the activity with an id and remove it again when done. The framework will automatically hide the activity bar when no more activity is present.
+
+Add and remove activity shows a indeterminate bar at the top. To update this bar with specific values, do not call `$addactivity`, instead call:
+
+```javascript
+this.$activityProgress(progressValue);
+```
+where `progressValue` is a number from `0` to `100`. You can keep calling it to update progress. 
+
+To hide the bar send a null value:
+
+```javascript
+this.$activityProgress(null);
+```
 
 # Automatically displaying ajax request activity with Vue-Resource
 In you main app.js file:
