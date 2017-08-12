@@ -102,6 +102,7 @@
                       persistentHint : this.hint!==undefined
                   },
                   style,
+                //  'class':this.class,
                   on : {
                       input : e=>this.$emit('input',e),
                       focus : e => this.$emit('focus',e),

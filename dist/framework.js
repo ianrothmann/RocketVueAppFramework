@@ -111,7 +111,7 @@ AppFramework.install = function (Vue, options) {
         AppFrameworkEventBus.$emit('add_activity', 'loading');
     };
 
-    Vue.prototype.$dialog = function (title, content, buttonObj, overlay) {
+    Vue.prototype.$dialog = function (title, content, overlay, buttonObj) {
         var opt = {};
         opt.title = title;
         opt.content = content;
@@ -123,7 +123,7 @@ AppFramework.install = function (Vue, options) {
         return promise;
     };
 
-    Vue.prototype.$formDialog = function (title, content, definition, data, buttonObj, overlay) {
+    Vue.prototype.$formDialog = function (title, content, definition, data, width, overlay, buttonObj) {
         var opt = {};
         opt.title = title;
         opt.content = content;
@@ -131,6 +131,7 @@ AppFramework.install = function (Vue, options) {
         opt.data = data;
         opt.buttons = buttonObj;
         opt.overlay = overlay;
+        opt.width = width;
         var promise = (0, _promiseHandler.createPromiseHandler)();
         opt.promise = promise;
         AppFrameworkEventBus.$emit('formDialog', opt);

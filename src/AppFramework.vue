@@ -16,7 +16,7 @@
             </div>
         </rw-dialog>
 
-        <rw-dialog :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
+        <rw-dialog :width="formDialogContent.width" :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
             <div v-html="formDialogContent.content"></div>
             <rocket-form-renderer :definition="formDialogContent.definition" :value="formDialogContent.data" @valid="rocketFormValid($event)" @invalid="rocketFormInvalid($event)" :id="formDialogContent.id"></rocket-form-renderer>
             <div slot="actions">
@@ -141,6 +141,8 @@ import {typeHelpers} from './mixins/general';
                 this.formDialogContent.id = AppFrameworkEventBus.getUniqueID('rocket-framework-dialog-form');
                 this.formDialogContent.definition = opt.definition;
                 this.formDialogContent.data = opt.data;
+                this.formDialogContent.width = opt.width;
+
                 this.formDialogContent.promiseHandler = opt.promise;
                 if(opt.buttons)
                     this.formDialogContent.buttons = opt.buttons;

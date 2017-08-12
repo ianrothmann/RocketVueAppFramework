@@ -1,5 +1,5 @@
 <template>
-        <v-dialog :hide-overlay="hideOverlay" :value="value" @input="showChanged($event)" :persistent="persistent">
+        <v-dialog :width="width" :hide-overlay="hideOverlay" :value="value" @input="showChanged($event)" :persistent="persistent">
             <rw-card :title="title">
                 <slot></slot>
                 <rw-card-actions>
@@ -23,7 +23,8 @@
           hideOverlay : {
               type : Boolean,
               default:false
-          }
+          },
+          width:{}
         },
         methods : {
           showChanged(show){
