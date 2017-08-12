@@ -38,7 +38,7 @@
             <v-btn flat :class="[snackbar.messagetype+'--text']" @click.native="showSnackbar = false">OK</v-btn>
         </v-snackbar>
 
-        <v-progress-linear :indeterminate="true" :active="showActivity&&!showLoader" class="activityScreenTop"></v-progress-linear>
+        <v-progress-linear v-model="activityLoaderProgress" :indeterminate="activityIndeterminate" :active="showActivity&&!showLoader" class="activityScreenTop"></v-progress-linear>
     </div>
 </template>
 <style>
@@ -73,11 +73,15 @@ import {typeHelpers} from './mixins/general';
         mixins : [typeHelpers],
         computed : {
           showActivity(){
-            return this.currentActivity.length>0;
+            return this.currentActivity.length>0||!this.activityIndeterminate;
+          },
+          activityIndeterminate(){
+              return this.activityLoaderProgress===null;
           }
         },
         data(){
             return{
+                activityLoaderProgress : null,
                 currentActivity : [],
                 snackbar: {
                     vertical: 'top',
@@ -113,6 +117,9 @@ import {typeHelpers} from './mixins/general';
             }
         },
         mounted(){
+          AppFrameworkEventBus.$on('activityProgress',(opt)=>{
+                this.activityLoaderProgress=opt;
+          });
 
           AppFrameworkEventBus.$on('dialog',(opt)=>{
             this.dialogContent.title = opt.title;

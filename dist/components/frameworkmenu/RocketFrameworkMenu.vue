@@ -75,13 +75,22 @@
 
                 };
 
-                if(item.itemLink!='')
+                const on={
+
+                };
+
+                if(item.itemTarget!=null){
                     props.href=item.itemLink;
-                if(item.itemTarget!='')
                     props.target=item.itemTarget;
+                }else if(item.itemLink!=null){
+                    on['click']=()=>{
+                        this.$navigate(item.itemLink);
+                    };
+                }
+
 
                 return h('rw-list-item',{
-                   props
+                   props,on
                 });
             },
             renderList(h){

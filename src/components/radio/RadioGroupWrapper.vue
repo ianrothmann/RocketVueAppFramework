@@ -85,7 +85,7 @@
                             data['props']=Object.assign({},this.$props);
 
                         delete data.props['name'];
-                        data['class']={'no-margins':true};
+                        data['class']={'no-margins':true,'pb-0':true,'pt-0':true};
                         data.props['value']=this.innerValue;
                         data['on']={
                           input : (e)=>{

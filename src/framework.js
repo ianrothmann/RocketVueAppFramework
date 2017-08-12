@@ -76,6 +76,18 @@ export const AppFramework = {};
 
 AppFramework.install = function (Vue, options) {
 
+    Vue.prototype.$activityProgress = function (progress) {
+        AppFrameworkEventBus.$emit('activityProgress',progress);
+    };
+
+    Vue.prototype.$navigate = function (href) {
+        setTimeout(()=>{
+            location.href=href;
+        },0);
+       AppFrameworkEventBus.$emit('add_activity','loading');
+    };
+
+
     Vue.prototype.$dialog = function (title, content, buttonObj, overlay) {
         let opt = {};
         opt.title = title;
