@@ -137,17 +137,17 @@ This will configure an interceptor to automatically log activity when an ajax ca
 # Integrating a Laravel session flash through VueBridge
 
 When using VueBridge, you could install vuebridge-sessionsnackbar in app.js:
-```
+```javascript
 import {sessionStatusMixin} from 'rocketvueappframework/dist/mixins/vuebridge-sessionsnackbar';
 ```
 and in your root app component:
-```
+```javascript
  mixins : [sessionStatusMixin],
 ```
 
 In Laravel you could then use:
 
-```
+```php
 session()->flash('error','Unsuccessful');
 session()->flash('warning','Unsuccessful');
 session()->flash('status,'Successful');
@@ -161,7 +161,7 @@ Some of the vuetify components are wrapped in Rocket Wrapper components to provi
 Please see the project wiki for a descripton of all wrapped components.
 
 ## Vuetify dialogs
-```
+```javascript
   <rw-dialog title="Dialog title here" v-model="showDialog">
             Content here
             <div slot="actions">
@@ -169,7 +169,6 @@ Please see the project wiki for a descripton of all wrapped components.
             </div>
   </rw-dialog>
 ```
-include rocketvueappframework/components/DialogWrapper.vue (if using separately from the framework).
 
 
 
