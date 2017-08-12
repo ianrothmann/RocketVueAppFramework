@@ -48,14 +48,18 @@ Form dialogs display a rocket form renderer in a dialog. It receives the followi
 * Dialog instructions
 * Rocket form renderer definition. Please refer to RocketFormRenderer in the RocketForm wiki,
 * Data object resembling the definition
+* Size in perc or pixels
+* Whether to hide the overlay (true to show the overlay)
 * Button object (optional) - **Very Important** The buttons that should trigger form validation should contain a key `validate:true`. By default the dialog will have save and cancel buttons.
-* Whether to hide the overlay
+
 
 ```javascript
+          const builder=this.$rf.builder;
+          
           let def=[
-                {type:'text',name:'name',label:'Name',validation:'required'},
-                {type:'text',name:'email',label:'Email address',validation:'required|email'},
-                {type:'text',name:'mobile',label:'Mobile',validation:'required'},
+                 builder.text('name','Name').withIcon('person'),
+                 builder.text('email','Email').withIcon('mail').withValidation('required|email'),
+                 builder.text('mobile','Mobile'),
             ];
 
             let data={
@@ -78,6 +82,14 @@ Form dialogs display a rocket form renderer in a dialog. It receives the followi
 ```
 
 Response is an object with `valid` (boolean), `btn` the key of the btn clicked and `data`, the returned valid form data. Data is not returned if the button does not `validate:true`.
+
+## Navigation
+This calls shows the top activity bar and calls `document.location`.
+
+```javascript
+this.$navigate('url here');
+```
+
 
 ## Loaders
 This displays an overlay with a Vuetify indeterminate circle progress at center screen.
@@ -102,6 +114,19 @@ this.$removeactivity(id);
 ```
 This will display an indeterminate progress bar at the top of the screen. You should add the activity with an id and remove it again when done. The framework will automatically hide the activity bar when no more activity is present.
 
+Add and remove activity shows a indeterminate bar at the top. To update this bar with specific values, do not call `$addactivity`, instead call:
+
+```javascript
+this.$activityProgress(progressValue);
+```
+where `progressValue` is a number from `0` to `100`. You can keep calling it to update progress. 
+
+To hide the bar send a null value:
+
+```javascript
+this.$activityProgress(null);
+```
+
 # Automatically displaying ajax request activity with Vue-Resource
 In you main app.js file:
 ```javascript
@@ -112,17 +137,17 @@ This will configure an interceptor to automatically log activity when an ajax ca
 # Integrating a Laravel session flash through VueBridge
 
 When using VueBridge, you could install vuebridge-sessionsnackbar in app.js:
-```
+```javascript
 import {sessionStatusMixin} from 'rocketvueappframework/dist/mixins/vuebridge-sessionsnackbar';
 ```
 and in your root app component:
-```
+```javascript
  mixins : [sessionStatusMixin],
 ```
 
 In Laravel you could then use:
 
-```
+```php
 session()->flash('error','Unsuccessful');
 session()->flash('warning','Unsuccessful');
 session()->flash('status,'Successful');
@@ -136,7 +161,7 @@ Some of the vuetify components are wrapped in Rocket Wrapper components to provi
 Please see the project wiki for a descripton of all wrapped components.
 
 ## Vuetify dialogs
-```
+```javascript
   <rw-dialog title="Dialog title here" v-model="showDialog">
             Content here
             <div slot="actions">
@@ -144,7 +169,6 @@ Please see the project wiki for a descripton of all wrapped components.
             </div>
   </rw-dialog>
 ```
-include rocketvueappframework/components/DialogWrapper.vue (if using separately from the framework).
 
 
 
