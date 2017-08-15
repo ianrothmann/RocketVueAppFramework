@@ -62,6 +62,8 @@
 
           return h('v-switch',{
               props,
+              attrs : {
+              },
               on : {
                   change : e => {
                       this.$emit('input',e);

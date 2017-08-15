@@ -42,7 +42,9 @@
         },
         inject: ['$validator'],
         render(h){
+
           const props=Object.assign({},this.$props);
+
           props['inputValue']=this.value;
             if(typeof props['inputValue'] === 'number'){
                 props['inputValue']=props['inputValue']>0;
@@ -60,8 +62,12 @@
             if(!props.color)
                 props['color']=this.getColorProperty();
 
+
+
           return h('v-checkbox',{
               props,
+              attrs : {
+              },
               on : {
                   change : e => {
                       this.$emit('input',e);

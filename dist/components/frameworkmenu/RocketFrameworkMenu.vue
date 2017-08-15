@@ -90,7 +90,7 @@
 
 
                 return h('rw-list-item',{
-                   props,on
+                    props,on
                 });
             },
             renderList(h){
@@ -106,7 +106,7 @@
                         children.push(h('rw-list-group',{
                             props : {
                                 title : item.itemLabel,
-                                icon : item.itemIcon,
+                                icon : item.itemIcon
                             }
                         },[subChildren]));
                     }else{
@@ -114,6 +114,7 @@
                     }
 
                 }
+
 
                 return h('rw-list',{
                     props : {
@@ -125,10 +126,11 @@
         },
         render(h){
             if(this.type==='toolbar'){
-                return this.renderToolbar(h);
+               // return this.renderToolbar(h);
             }else{
                 return this.renderList(h);
             }
+
 
         }
     }
