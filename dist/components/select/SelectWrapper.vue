@@ -82,6 +82,8 @@
              */
           return h('v-select',{
               props : this.innerProps,
+              attrs : {
+              },
               on : {
                   input : e => this.$emit('input',e)
               }

@@ -52,6 +52,7 @@
         inject: ['$validator'],
         render(h){
             const props=Object.assign({},this.$props);
+
             if(this.step && this.step>1){
                 props['snap']=true;
             }
@@ -66,6 +67,8 @@
 
             return h('v-slider',{
                 props,
+                attrs : {
+                },
                 on : {
                     input : e => {
                         this.$emit('input',e);
