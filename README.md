@@ -24,11 +24,14 @@ And somewhere in you main app or main app layout blade file (if you are using la
 
 or a more advanced usage:
 
+```javascript
+this.$dialog(title,message,width,showOverlay,buttonObject);
+```
 
-this.$dialog(title,message,buttonObject,hideOverlay);
+The width property is the size of the dialog in perc or pixels. ShowOverlay could be true or false.
 
 ```javascript
- this.$dialog('Confirm title','Are you sure?',{
+ this.$dialog('Confirm title','Are you sure?','40%',true,{
                 yes : 'Yes',
                 no : {label:'No',color:'accent'}
             },).then((result)=>{
