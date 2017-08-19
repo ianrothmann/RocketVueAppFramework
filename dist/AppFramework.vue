@@ -9,7 +9,7 @@
             <span class="grey--text--darken-3" v-html="loaderText" v-if="loaderText!=''"></span>
         </div>
 
-        <rw-dialog :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
+        <rw-dialog :width="dialogContent.width" :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
             <div v-html="dialogContent.content"></div>
             <div slot="actions">
                 <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
@@ -125,6 +125,7 @@ import {typeHelpers} from './mixins/general';
             this.dialogContent.title = opt.title;
             this.dialogContent.hideOverlay = !opt.overlay;
             this.dialogContent.content = opt.content;
+            this.dialogContent.width = opt.width;
             this.dialogContent.promiseHandler = opt.promise;
             if(opt.buttons)
                 this.dialogContent.buttons = opt.buttons;

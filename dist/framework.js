@@ -83,6 +83,7 @@ _vue2.default.component('rw-label', require('./components/label/LabelWrapper.vue
 _vue2.default.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 _vue2.default.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
 _vue2.default.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
+_vue2.default.component('rw-map', require('./components/map/MapInput.vue'));
 _vue2.default.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
 
 var AppFrameworkEventBus = exports.AppFrameworkEventBus = new _vue2.default({
@@ -111,11 +112,12 @@ AppFramework.install = function (Vue, options) {
         AppFrameworkEventBus.$emit('add_activity', 'loading');
     };
 
-    Vue.prototype.$dialog = function (title, content, overlay, buttonObj) {
+    Vue.prototype.$dialog = function (title, content, width, overlay, buttonObj) {
         var opt = {};
         opt.title = title;
         opt.content = content;
         opt.buttons = buttonObj;
+        opt.width = width;
         opt.overlay = overlay;
         var promise = (0, _promiseHandler.createPromiseHandler)();
         opt.promise = promise;

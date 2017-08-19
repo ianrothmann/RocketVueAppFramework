@@ -126,7 +126,7 @@
         },
         render(h){
             if(this.type==='toolbar'){
-               // return this.renderToolbar(h);
+                return this.renderToolbar(h);
             }else{
                 return this.renderList(h);
             }

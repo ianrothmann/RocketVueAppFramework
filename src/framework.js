@@ -57,6 +57,7 @@ Vue.component('rw-label', require('./components/label/LabelWrapper.vue'));
 Vue.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
 Vue.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
+Vue.component('rw-map', require('./components/map/MapInput.vue'));
 Vue.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
 
 
@@ -88,11 +89,12 @@ AppFramework.install = function (Vue, options) {
     };
 
 
-    Vue.prototype.$dialog = function (title, content, overlay, buttonObj) {
+    Vue.prototype.$dialog = function (title, content, width,overlay, buttonObj) {
         let opt = {};
         opt.title = title;
         opt.content = content;
         opt.buttons = buttonObj;
+        opt.width = width;
         opt.overlay = overlay;
         let promise = createPromiseHandler();
         opt.promise = promise;
