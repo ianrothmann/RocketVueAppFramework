@@ -81,11 +81,18 @@ AppFramework.install = function (Vue, options) {
         AppFrameworkEventBus.$emit('activityProgress',progress);
     };
 
-    Vue.prototype.$navigate = function (href) {
-        setTimeout(()=>{
-            location.href=href;
-        },0);
-       AppFrameworkEventBus.$emit('add_activity','loading');
+    Vue.prototype.$navigate = function (href,target) {
+        if(target){
+            setTimeout(()=>{
+                window.open(href,target);
+            },0);
+        }else{
+            setTimeout(()=>{
+                location.href=href;
+            },0);
+            AppFrameworkEventBus.$emit('add_activity','loading');
+        }
+
     };
 
 

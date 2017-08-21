@@ -58,6 +58,11 @@
                                 iconLeft:true,
                                 id :url ,
                                 active:url===this.currentUrl
+                            },
+                            on : {
+                                click : ()=>{
+                                    this.$navigate(item.itemLink,item.itemTarget);
+                                }
                             }
                         },item.itemLabel));
 
