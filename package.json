@@ -1,6 +1,6 @@
 {
   "name": "rocketvueappframework",
-  "version": "0.3.6",
+  "version": "0.4.1",
   "description": "A series of Vue Components and Plugins that help speed up general app development. Currently implemented using Vuetify.",
   "main": "dist/framework.js",
   "scripts": {
@@ -36,6 +36,6 @@
     "vuedraggable": "^2.11.0",
     "vuetify": "^0.14.11",
     "webpack": "^3.5.1",
-    "vue2-google-maps": "^0.8.0"
+    "vue-quill-editor": "^2.3.0"
   }
 }

@@ -8,6 +8,7 @@
             menu : {
                 required:true
             }
+
         },
         computed:{
             items(){
@@ -21,6 +22,28 @@
             }
         },
         methods : {
+            navigate(link,target){
+                if(this.$navigationGuard.guard===null||this.$navigationGuard===undefined){
+                    this.$navigate(link,target);
+                }else{
+                    let result=this.$navigationGuard.guard();
+
+                    if(typeof(result) === "boolean"){
+                         if(result)
+                             this.$navigate(link,target);
+
+                    }else{
+                        result.then((canNavigate)=>{
+                            if(canNavigate){
+                                this.$navigate(link,target);
+
+                            }
+                        });
+                    }
+
+                }
+
+            },
             isGroup(item){
                return Object.keys(item.subMenu.items).length > 0;
             },
@@ -61,7 +84,7 @@
                             },
                             on : {
                                 click : ()=>{
-                                    this.$navigate(item.itemLink,item.itemTarget);
+                                    this.navigate(item.itemLink,item.itemTarget);
                                 }
                             }
                         },item.itemLabel));
@@ -89,7 +112,8 @@
                     props.target=item.itemTarget;
                 }else if(item.itemLink!=null){
                     on['click']=()=>{
-                        this.$navigate(item.itemLink);
+
+                        this.navigate(item.itemLink);
                     };
                 }
 

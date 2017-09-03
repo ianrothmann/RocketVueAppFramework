@@ -59,6 +59,7 @@ Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelW
 Vue.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
 Vue.component('rw-map', require('./components/map/MapInput.vue'));
 Vue.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
+Vue.component('rocket-editinplace', require('./components/editinplace/EditInPlace.vue'));
 
 
 
@@ -95,6 +96,13 @@ AppFramework.install = function (Vue, options) {
 
     };
 
+
+    Vue.prototype.$navigationGuard={
+        guard:null,
+        set:(functionReturningBoolPromise)=>{
+            Vue.prototype.$navigationGuard.guard=functionReturningBoolPromise;
+        }
+    };
 
     Vue.prototype.$dialog = function (title, content, width,overlay, buttonObj) {
         let opt = {};

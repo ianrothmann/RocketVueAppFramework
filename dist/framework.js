@@ -85,6 +85,7 @@ _vue2.default.component('rw-accord-panel', require('./components/accordion/Accor
 _vue2.default.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
 _vue2.default.component('rw-map', require('./components/map/MapInput.vue'));
 _vue2.default.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
+_vue2.default.component('rocket-editinplace', require('./components/editinplace/EditInPlace.vue'));
 
 var AppFrameworkEventBus = exports.AppFrameworkEventBus = new _vue2.default({
     data: {
@@ -115,6 +116,13 @@ AppFramework.install = function (Vue, options) {
                 location.href = href;
             }, 0);
             AppFrameworkEventBus.$emit('add_activity', 'loading');
+        }
+    };
+
+    Vue.prototype.$navigationGuard = {
+        guard: null,
+        set: function set(functionReturningBoolPromise) {
+            Vue.prototype.$navigationGuard.guard = functionReturningBoolPromise;
         }
     };
 
