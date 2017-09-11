@@ -64,7 +64,7 @@ import {AppFrameworkEventBus} from '../../framework';
              class : this.sliderColor || 'secondary'
           };
 
-          const tabsBar=[h('v-tabs-bar',{slot:'activators'},tabNodes.concat(h('v-tabs-slider',sliderProps)))];
+          const tabsBar=[h('v-tabs-bar',{},tabNodes.concat(h('v-tabs-slider',sliderProps)))];
 
 
           let props=this.$props;
@@ -74,7 +74,7 @@ import {AppFrameworkEventBus} from '../../framework';
             on : {
                 input : e => this.$emit('input',e)
             }
-          },tabsBar.concat(tabContent));
+          },tabsBar.concat(h('v-tabs-items',{},tabContent)));
         }
     }
 </script>

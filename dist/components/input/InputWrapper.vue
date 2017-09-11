@@ -10,7 +10,7 @@
             id : {required:false},
             name : {required:false},
             autofocus: Boolean,
-            counter: Boolean,
+            counter: Number|String,
             readonly: Boolean,
             prefix: String,
             suffix: String,

@@ -75,42 +75,28 @@
             const children=[];
             children.push(h('rw-subheader',{props:{trim:true}},this.label));
 
-            const radios=[];
-
             if(this.$slots.default){
                 this.$slots.default.forEach((node)=> {
-                    if (node.tag !== undefined && node.tag.indexOf('v-radio') > -1) {
+                    if (node.tag !== undefined && node.tag.indexOf('rw-radio') > -1) {
                         const data=node.data;
                         if(node.componentOptions.hasOwnProperty('propsData'))
                             data['props']=Object.assign({},this.$props,node.componentOptions.propsData);
                         else
                             data['props']=Object.assign({},this.$props);
-                        delete data.props['name'];
 
+                        delete data.props['name'];
                         data['class']={'no-margins':true,'pb-0':true,'pt-0':true};
+                        data.props['value']=this.innerValue;
                         data['on']={
-                          change : (e)=>{
+                          input : (e)=>{
                               this.innerValue=e;
                               this.$emit('input',this.innerValue);
                           }
                         };
-                        radios.push(h('v-radio',data));
+                        children.push(h('rw-radio',data));
                     }
                 });
             }
-
-            children.push(h('v-radio-group',{
-                props : {
-                    inputValue : this.innerValue
-                },
-                on : {
-                    input : (e)=>{
-                        this.innerValue=e;
-                        this.$emit('input',this.innerValue);
-                    }
-                }
-            },radios));
-
             children.push(this.renderError(h));
             return h('div',{
                 props,

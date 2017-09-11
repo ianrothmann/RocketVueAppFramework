@@ -29,13 +29,13 @@
                                        <v-icon>more_vert</v-icon>
                                    </v-btn>
                                    <v-list>
-                                           <v-list-tile v-if="isImage(file.mimetype)" @click.native="previewImage(index)">
+                                           <v-list-tile v-if="isImage(file.mimetype)" @click="previewImage(index)">
                                                <v-list-tile-title>Preview</v-list-tile-title>
                                            </v-list-tile>
-                                           <v-list-tile @click.native="downloadFile(file.url)">
+                                           <v-list-tile @click="downloadFile(file.url)">
                                                <v-list-tile-title>Download</v-list-tile-title>
                                            </v-list-tile>
-                                           <v-list-tile @click.native="confirmDelete(index,$event)">
+                                           <v-list-tile @click="confirmDelete(index,$event)">
                                                <v-list-tile-title>Delete</v-list-tile-title>
                                            </v-list-tile>
                                    </v-list>
@@ -74,7 +74,7 @@
                        </v-list-tile-content>
                    </v-list-tile>
 
-                   <v-list-tile v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) " avatar class="no-drag" @click.native="onUploadClick()">
+                   <v-list-tile v-if="!dragHovering&&!globalError&&(!maxNumFiles || files.length <maxNumFiles) " avatar class="no-drag" @click="onUploadClick()">
                        <v-list-tile-avatar>
                            <v-icon class="green--text text--lighten-1">add_circle</v-icon>
                        </v-list-tile-avatar>
@@ -89,8 +89,8 @@
            <rw-card title="Are you sure?">
                Are you sure that you want to delete <span v-if="delIndex!==null">{{files[delIndex].originalfilename}}</span>?
                <rw-card-actions>
-                   <v-btn class="info--text" flat="flat" @click.native="delDialog = false">Cancel</v-btn>
-                   <v-btn class="warning--text" flat="flat" @click.native="deleteFile(delIndex)">OK</v-btn>
+                   <v-btn class="info--text" flat="flat" @click="delDialog = false">Cancel</v-btn>
+                   <v-btn class="warning--text" flat="flat" @click="deleteFile(delIndex)">OK</v-btn>
                </rw-card-actions>
            </rw-card>
        </v-dialog>
