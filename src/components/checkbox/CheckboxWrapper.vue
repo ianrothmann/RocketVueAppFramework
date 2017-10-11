@@ -1,8 +1,9 @@
 <script>
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
+    import Validation from '../mixins/validation';
     export default{
-        mixins : [Contextualable],
+        mixins : [Contextualable,Validation],
         props : {
             indeterminate: Boolean,
             falseValue: String,
@@ -52,13 +53,12 @@
 
           props['value']=props['trueValue'];
 
-          if(this.$validator!==undefined&&this.name){
-              if(this.verrors.has(this.name)){
-                  props['rules']=[()=>this.verrors.first(this.name)];
-              }
-          }else{
+            if(this.$validator!==undefined&&this.name){
+                props['error-messages']=this.validationErrors;
+            }else{
               props['rules']=this.rules;
-          }
+            }
+
             if(!props.color)
                 props['color']=this.getColorProperty();
 

@@ -1,4 +1,5 @@
 <script>
+    import Validation from '../mixins/validation';
     export default{
         props : {
             value : String,
@@ -30,6 +31,7 @@
             hideDetails : Boolean
 
         },
+        mixins:[Validation],
         data(){
             return {
                 rules: [],
@@ -69,10 +71,7 @@
                 props['multi-line']=this.multiline;
 
                 if(this.$validator!==undefined&&this.name){
-                    if(this.verrors.has(this.name)){
-                        props['rules']=[()=>this.verrors.first(this.name)];
-                        props['error']=true;
-                    }
+                    props['error-messages']=this.validationErrors;
                 }
 
                 return props;

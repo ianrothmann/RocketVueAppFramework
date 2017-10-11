@@ -1,4 +1,5 @@
 <script>
+    import Validation from '../mixins/validation';
     import Themable from '../mixins/themeable';
     import * as moment from 'moment/moment';
     export default{
@@ -22,7 +23,7 @@
             allowBefore : [Date,String],
             allowAfter : [Date,String]
         },
-        mixins : [Themable],
+        mixins : [Themable,Validation],
         data(){
           return {
               innerDate : null,

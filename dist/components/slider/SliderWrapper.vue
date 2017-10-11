@@ -1,4 +1,5 @@
 <script>
+    import Validation from '../mixins/validation';
     export default{
         props : {
             inverted: Boolean,
@@ -25,6 +26,7 @@
             prependIcon : String,
             appendIcon : String
         },
+        mixins:[Validation],
         data(){
             return {
                 rules: [],
@@ -58,9 +60,7 @@
             }
 
             if(this.$validator!==undefined&&this.name){
-                if(this.verrors.has(this.name)){
-                    props['rules']=[()=>this.verrors.first(this.name)];
-                }
+                props['error-messages']=this.validationErrors;
             }else{
                 props['rules']=this.rules;
             }

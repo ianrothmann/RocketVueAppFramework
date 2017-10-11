@@ -1,8 +1,9 @@
 <script>
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
+    import Validation from '../mixins/validation';
     export default{
-        mixins : [Contextualable,Themeable],
+        mixins : [Contextualable,Themeable,Validation],
         props : {
             value : {},
             label : String,
@@ -83,11 +84,7 @@
             const props=Object.assign({},this.$props);
 
             if(this.$validator!==undefined&&this.name){
-                if(this.verrors.has(this.name)){
-                    this.innerError=this.verrors.first(this.name);
-                }else{
-                    this.innerError='';
-                }
+                this.innerError=this.validationError;
             }
 
             const children=[];

@@ -1,8 +1,9 @@
 <script>
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
+    import Validation from '../mixins/validation';
     export default{
-        mixins : [Contextualable],
+        mixins : [Contextualable,Validation],
         props : {
             indeterminate: Boolean,
             falseValue: String,

@@ -1,8 +1,9 @@
 <script>
     import Contextualable from '../mixins/contextualable'
     import Themeable from '../mixins/themeabledark'
+    import Validation from '../mixins/validation';
     export default{
-        mixins : [Contextualable],
+        mixins : [Contextualable,Validation],
         props : {
             value : {},
             label : String,
@@ -13,6 +14,7 @@
             dark : Boolean,
             color:String
         },
+
         data(){
             return {
                 innerValue : null,
@@ -65,12 +67,9 @@
             const props=Object.assign({},this.$props);
 
             if(this.$validator!==undefined&&this.name){
-                if(this.verrors.has(this.name)){
-                    this.innerError=this.verrors.first(this.name);
-                }else{
-                    this.innerError='';
-                }
+                this.innerError=this.validationError;
             }
+
 
             const children=[];
             children.push(h('rw-subheader',{props:{trim:true}},this.label));
@@ -86,6 +85,8 @@
                         else
                             data['props']=Object.assign({},this.$props);
                         delete data.props['name'];
+                        data['props']['color']=this.getColorProperty();
+
 
                         data['class']={'no-margins':true,'pb-0':true,'pt-0':true};
                         data['on']={
