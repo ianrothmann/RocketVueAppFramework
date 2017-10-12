@@ -63,6 +63,8 @@
           }
 
           let data=context.data;
+
+          Contextualable.methods.removeContextProperties(props);
           data['props']=props;
 
           if(props.active){

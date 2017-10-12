@@ -84,6 +84,7 @@ _vue2.default.component('rw-accord', require('./components/accordion/AccordionWr
 _vue2.default.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
 _vue2.default.component('rw-scroll-list', require('./components/scroll-list/ScrollList.vue'));
 _vue2.default.component('rw-map', require('./components/map/MapInput.vue'));
+_vue2.default.component('rw-input-error', require('./components/inputerror/InputError.vue'));
 _vue2.default.component('rocket-framework-menu', require('./components/frameworkmenu/RocketFrameworkMenu.vue'));
 _vue2.default.component('rocket-editinplace', require('./components/editinplace/EditInPlace.vue'));
 

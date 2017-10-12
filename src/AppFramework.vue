@@ -9,14 +9,14 @@
             <span class="grey--text--darken-3" v-html="loaderText" v-if="loaderText!=''"></span>
         </div>
 
-        <rw-dialog :width="dialogContent.width" :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
+        <rw-dialog :max-width="dialogContent.width" :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
             <div v-html="dialogContent.content"></div>
             <div slot="actions">
                 <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
             </div>
         </rw-dialog>
 
-        <rw-dialog :width="formDialogContent.width" :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
+        <rw-dialog :max-width="formDialogContent.width" :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
             <div v-html="formDialogContent.content"></div>
             <rocket-form-renderer :definition="formDialogContent.definition" :value="formDialogContent.data" @valid="rocketFormValid($event)" @invalid="rocketFormInvalid($event)" :id="formDialogContent.id"></rocket-form-renderer>
             <div slot="actions">
@@ -49,7 +49,7 @@ position : fixed;
   left:0;
   width: 100vw;
   height: 100vh;
-  z-index:1000;
+  z-index:100000;
 }
 .loader-overlay{
   background-color:rgba(0,0,0,0.2);

@@ -8,7 +8,8 @@
             title : String,
             sideIcon : Boolean,
             prominent : Boolean,
-            dense : Boolean
+            dense : Boolean,
+            app : Boolean
         },
         mixins : [Contextualable,Themable],
         render(h){
@@ -33,6 +34,10 @@
                 props['prominent']=true;
             }
 
+            if(this.app)
+                props['app']=true;
+
+            props['color']=this.color;
 
             const items=[];
             if(this.sideIcon){
@@ -53,8 +58,7 @@
             }
             //
           return h('v-toolbar',{
-              props,
-              class : this.getContextClasses()
+              props
           },items.concat(
               [h('v-spacer',{},''),this.$slots.default]
 

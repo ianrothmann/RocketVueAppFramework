@@ -50,13 +50,7 @@
             },
             renderError(h){
                 if(this.innerError!=''){
-                    return h('div',{'class':['input-group','no-margins']},[h('div',{
-                        'class' : ['input-group__details']
-                    },[h('div',{
-                        'class' : ['input-group__messages']
-                    },[h('div',{
-                        'class' : ['input-group__error']
-                    },this.innerError)])])]);
+                    return h('rw-input-error',{},[this.innerError]);
                 }else{
                     return null;
                 }

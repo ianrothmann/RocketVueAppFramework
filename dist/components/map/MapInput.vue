@@ -1,11 +1,7 @@
 <template>
     <div ref="main">
         <v-subheader style="padding-left:0;" v-if="label">{{label}}</v-subheader>
-        <div v-if="error" class="input-group input-group--error radio input-group--selection-controls no-margins">
-            <div class="input-group__details">
-                <div class="input-group__messages"><div class="input-group__error">{{error}}</div></div>
-            </div>
-        </div>
+        <rw-input-error v-if="error">{{error}}</rw-input-error>
         <div class="map-control">
         <div ref="mapContainer" :style="{height: height}" :class="{'location_map':editMode,'location_map_full':editMode}"></div>
         <v-toolbar floating dense v-if="editMode" class="white map-search-box">

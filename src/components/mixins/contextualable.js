@@ -5,33 +5,54 @@ export default {
         success: Boolean,
         info: Boolean,
         warning: Boolean,
-        error: Boolean
+        error: Boolean,
+        color:String
+    },
+    mounted(){
+
     },
     methods : {
         getContextClasses(){
-            const obj={};
-            obj['primary']=this.primary;
-            obj['secondary']=this.secondary;
-            obj['success']=this.success;
-            obj['info']=this.info;
-            obj['warning']=this.warning;
-            obj['error']=this.error;
-
-            return obj;
+            console.log(this);
+            return {color:this.getColorProperty()};
         },
         getColorProperty(){
-            if(this.primary)
+
+            if(this.color){
+                return this.color;
+            }
+            else if(this.primary)
                 return 'primary';
-            else  if(this.secondary)
+            else if(this.secondary)
                 return 'secondary';
-            else  if(this.success)
+            else if(this.success)
                 return 'success';
-            else  if(this.info)
+            else if(this.info)
                 return 'info';
-            else  if(this.warning)
+            else if(this.warning)
                 return 'warning';
-            else  if(this.error)
+            else if(this.error)
                 return 'error';
+        },
+        removeContextProperties(props){
+
+            let color;
+            const ctx=['primary','secondary','success','info','warning','error'];
+
+            for(let c of ctx){
+                if(props[c])
+                    color=c;
+            }
+
+            if(color)
+                props['color']=color;
+
+            delete props['primary'];
+            delete props['secondary'];
+            delete props['success'];
+            delete props['info'];
+            delete props['warning'];
+            delete props['error'];
         }
     }
 }
