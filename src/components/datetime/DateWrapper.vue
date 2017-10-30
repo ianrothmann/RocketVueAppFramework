@@ -101,6 +101,7 @@
                       disabled : this.disabled,
                       persistentHint : this.hint!==undefined
                   },
+                  attrs:this.$attrs,
                   style,
                 //  'class':this.class,
                   on : {

@@ -33,32 +33,34 @@ import {AppFrameworkEventBus} from '../../framework';
           const tabContent=[];
           let icons=false;
 
-          this.$slots.default.forEach((node)=>{
-            if(node.tag!==undefined&&node.tag.indexOf('rw-tab')>-1){
-                let props=node.componentOptions.propsData;
-                let tabid=this.id+'_'+id;
-                if(props.id && props.id!=='')
-                    tabid=props.id;
+          if(this.$slots.default){
+              this.$slots.default.forEach((node)=>{
+                  if(node.tag!==undefined&&node.tag.indexOf('rw-tab')>-1){
+                      let props=node.componentOptions.propsData;
+                      let tabid=this.id+'_'+id;
+                      if(props.id && props.id!=='')
+                          tabid=props.id;
 
-                if(props.active&&props.active===true){
-                    this.defaultTabid=tabid;
-                }
+                      if(props.active&&props.active===true){
+                          this.defaultTabid=tabid;
+                      }
 
-                let tabTitle=[];
-                if(props.hasOwnProperty('title')&&props.title!=='')
-                 tabTitle.push(props.title);
+                      let tabTitle=[];
+                      if(props.hasOwnProperty('title')&&props.title!=='')
+                          tabTitle.push(props.title);
 
-                if(props.hasOwnProperty('icon')&&props.icon!==''){
-                  icons=true;
-                  tabTitle.push(h('v-icon',{},props.icon));
-                }
+                      if(props.hasOwnProperty('icon')&&props.icon!==''){
+                          icons=true;
+                          tabTitle.push(h('v-icon',{},props.icon));
+                      }
 
-                tabNodes.push(h('v-tabs-item',{attrs: {href:'#'+tabid, id:tabid, ripple:true}},tabTitle));
-                tabContent.push(h('v-tabs-content',{attrs: {id:tabid}}, [node])),
-                id++;
-            }
+                      tabNodes.push(h('v-tabs-item',{attrs: {href:'#'+tabid, id:tabid, ripple:true}},tabTitle));
+                      tabContent.push(h('v-tabs-content',{attrs: {id:tabid}}, [node])),
+                          id++;
+                  }
 
-          });
+              });
+          }
 
          const sliderProps = {
              class : this.sliderColor || 'secondary'

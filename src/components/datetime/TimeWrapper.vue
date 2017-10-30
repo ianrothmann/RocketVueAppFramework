@@ -87,6 +87,7 @@
                       disabled : this.disabled,
                       persistentHint : this.hint!==undefined
                   },
+                  attrs:this.$attrs,
                   style,
                   on : {
                       input : e=>this.$emit('input',e),
