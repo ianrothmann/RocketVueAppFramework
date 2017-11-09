@@ -6,8 +6,16 @@
            dividers : Boolean,
            compact : Boolean,
            large : Boolean,
+           valueFuzzyMatchStart:Boolean
         },
         methods : {
+           matchValue(id,value){
+               if(this.valueFuzzyMatchStart){
+                   return value.startsWith(id);
+               }else{
+                   return id==value;
+               }
+           },
            renderGroup(h,node){
                let props = node.componentOptions.propsData;
 
@@ -27,7 +35,7 @@
 
                        if (child.tag !== undefined && child.tag.indexOf('rw-list-item') > -1) {
                            let props = child.componentOptions.propsData;
-                           if(props['id']!==undefined&&props['id']==this.value)
+                           if(props['id']!==undefined&&this.matchValue(props['id'],this.value))
                                value=true;
                            items.push(this.renderItem(h,child));
                        }
@@ -53,7 +61,7 @@
 
                let value=false;
                if(props['id']!==undefined){
-                   if(props['id']==this.value){
+                   if(this.matchValue(props['id'],this.value)){
                        value=true;
                    }
 

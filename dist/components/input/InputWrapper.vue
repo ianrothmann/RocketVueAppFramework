@@ -2,7 +2,7 @@
     import Validation from '../mixins/validation';
     export default{
         props : {
-            value : String,
+            value : {},
             label : String,
             hint : String,
             placeholder : String,

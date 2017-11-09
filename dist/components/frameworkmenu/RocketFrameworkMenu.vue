@@ -47,6 +47,12 @@
             isGroup(item){
                return Object.keys(item.subMenu.items).length > 0;
             },
+            isValid(item){
+               return item.itemLink!=null;
+            },
+            isActive(url,currentUrl){
+               return url===currentUrl||currentUrl.startsWith(url);
+            },
             getComparableUrl(item){
                 const parser = document.createElement('a');
                 parser.href = item.itemLink;
@@ -72,7 +78,7 @@
                                 offsetY:true
                             }
                         },[h('rw-list',{props : {value:this.currentUrl}},subChildren)]));
-                    }else{
+                    }else if(this.isValid(item)){
                         const url=this.getComparableUrl(item);
                         children.push(h('rw-btn',{
                             props : {
@@ -80,7 +86,7 @@
                                 icon : item.itemIcon,
                                 iconLeft:true,
                                 id :url ,
-                                active:url===this.currentUrl
+                                active:this.isActive(url,this.currentUrl)
                             },
                             on : {
                                 click : ()=>{
@@ -132,13 +138,15 @@
                         for(let subItemKey of Object.keys(item.subMenu.items)){
                             subChildren.push(this.renderListItem(h,item.subMenu.items[subItemKey]));
                         }
+
                         children.push(h('rw-list-group',{
                             props : {
                                 title : item.itemLabel,
                                 icon : item.itemIcon
                             }
                         },[subChildren]));
-                    }else{
+
+                    }else if(this.isValid(item)){
                         children.push(this.renderListItem(h,item));
                     }
 
@@ -148,12 +156,14 @@
                 return h('rw-list',{
                     props : {
                         compact : true,
-                        value : this.currentUrl
+                        value : this.currentUrl,
+                        valueFuzzyMatchStart:true
                     }
                 },children);
             }
         },
         render(h){
+
             if(this.type==='toolbar'){
                 return this.renderToolbar(h);
             }else{

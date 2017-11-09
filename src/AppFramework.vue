@@ -38,7 +38,7 @@
             <v-btn flat :class="[snackbar.messagetype+'--text']" @click.native="showSnackbar = false">OK</v-btn>
         </v-snackbar>
 
-        <v-progress-linear v-model="activityLoaderProgress" :indeterminate="activityIndeterminate" :active="showActivity&&!showLoader" class="activityScreenTop"></v-progress-linear>
+        <v-progress-linear v-model="activityLoaderProgress" :indeterminate="activityIndeterminate" :active="showActivity&&!showLoader" class="activityScreenTop" color="info"></v-progress-linear>
     </div>
 </template>
 <style>
