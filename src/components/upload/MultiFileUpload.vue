@@ -32,7 +32,7 @@
                                            <v-list-tile v-if="isImage(file.mimetype)" @click="previewImage(index)">
                                                <v-list-tile-title>Preview</v-list-tile-title>
                                            </v-list-tile>
-                                           <v-list-tile @click="downloadFile(file.url)">
+                                           <v-list-tile @click="downloadFile(file)">
                                                <v-list-tile-title>Download</v-list-tile-title>
                                            </v-list-tile>
                                            <v-list-tile @click="confirmDelete(index,$event)">
@@ -162,9 +162,9 @@
         },
         inject : ['$validator'],
         mounted(){
-            this.files=this.value || [];
+            this.receiveValue();
             this.$watch('value', (val)=>{
-                this.files=this.value || [];
+                this.receiveValue();
             }, {deep: true});
 
         },
@@ -211,6 +211,11 @@
            */
         },
         methods : {
+            receiveValue(){
+                this.files=(this.value|| []).filter((i)=>{
+                        return i!==null;
+                    });
+            },
             validate(){
                 if(this.$validator!==undefined&&this.name){
                     if(this.verrors.has(this.name)){
@@ -376,8 +381,15 @@
             isImage(mime){
                 return mime.indexOf('image')>-1;
             },
-            downloadFile(url){
-                window.open(url);
+            downloadFile(file){
+                if(file.private==true){
+                    this.$http.post(this.url,{command:'download',fileid:file.fileid}).then((r)=>{
+                        window.open(r.body);
+                    });
+                }else{
+                    window.open(url);
+                }
+
             },
             confirmDelete(index,e){
                 this.delIndex=index;

@@ -157,7 +157,7 @@
                     props : {
                         compact : true,
                         value : this.currentUrl,
-                        valueFuzzyMatchStart:true
+                        valueFuzzyMatchStart:false
                     }
                 },children);
             }

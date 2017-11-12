@@ -117,6 +117,9 @@ AppFramework.install = function (Vue, options) {
                 location.href = href;
             }, 0);
             AppFrameworkEventBus.$emit('add_activity', 'loading');
+            setTimeout(function () {
+                AppFrameworkEventBus.$emit('remove_activity', 'loading');
+            }, 8000);
         }
     };
 
