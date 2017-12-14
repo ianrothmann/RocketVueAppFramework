@@ -59,6 +59,7 @@
           }
 
           let children=null;//
+
           if(c.props.value!==undefined){
               if(Array.isArray(c.props.value)){
                   if(c.props.value.length>0){
@@ -89,6 +90,7 @@
                   }
               }else{
                   if(c.props.valueProp){
+
                       if(typeof c.props.value==='object'){
 
                           children=renderValue(c.props.value[c.props.valueProp]);

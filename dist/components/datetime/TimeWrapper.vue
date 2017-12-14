@@ -70,7 +70,7 @@
           if(this.inline){
               return h('div',{},[h('strong',{},this.label),datepicker]);
           }else{
-              const style = {};
+              const style = {'min-width':'200px'};
               if(this.noMargins){
                   style['margin']=0;
               }

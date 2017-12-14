@@ -169,12 +169,16 @@ AppFramework.install = function (Vue, options) {
     Vue.filter('rdate', function(dateString,format_type) {
 
         let date = moment(dateString, 'YYYY-MM-DD HH:mm:ss' , true);
+        if(!date.isValid()){
+            date = moment(dateString);
+        }
 
         if(!date.isValid()){
             return null;
         }else if(format_type==='compactdate'){
             return date.format("D MMM 'YY");
         }else if(format_type==='dbdate'){
+
             return date.format("YYYY-MM-DD");
         }else if(format_type==='dbdatetime'){
             return date.format("YYYY-MM-DD HH:mm:ss");
