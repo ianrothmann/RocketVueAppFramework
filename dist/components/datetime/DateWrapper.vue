@@ -14,9 +14,22 @@
             days : Array,//renaming days
             landscape : Boolean,
             noMargins : Boolean,
-            allowedDates : [Array,Function,Object],
+            allowedDates : [Function],
             allowBefore : [Date,String],
             allowAfter : [Date,String]
+        },
+        data(){
+            return {
+                menuOpen:false,
+                oldValue:null
+            }
+        },
+        watch:{
+            menuOpen(open){
+                if(open){
+                    this.oldValue=this.value;
+                }
+            }
         },
         mixins : [Themable],
         render(h){
@@ -24,7 +37,7 @@
             const scopedSlots={};
 
           if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
-              scopedSlots['default']=(scope)=>{
+             /* scopedSlots['default']=(scope)=>{
 
                   return h('v-card-actions',{
                       props : {actions:true}
@@ -46,7 +59,7 @@
                           }
                       },'Save'),
                   ]);
-              };
+              };*/
 
               props['scrollable'] = true;
           }
@@ -58,6 +71,7 @@
 
           if(props['compact'])
             props['noTitle']=true;
+
 
           if(props['allowedDates']===undefined){
               if(props['allowBefore']||props['allowAfter'])
@@ -72,17 +86,42 @@
               }
           }
 
+          const dpChild=[];
+
+          if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
+              dpChild.push( h('v-btn',{
+                      props:{flat:true,secondary:true},
+                      on : {
+                          click : ()=>{
+                            this.$emit('input',this.oldValue);
+                            this.menuOpen=false;
+                          }
+                      }
+                  },'Cancel'),
+                 );
+
+              dpChild.push(h('v-btn',{
+                      props:{flat:true,primary:true},
+                      on : {
+                          click : ()=>{
+                              this.menuOpen=false;
+                          }
+                      }
+                  },'OK')
+                 );
+          }
+
           const datepicker=h('v-date-picker',{
               props,
               on : {
                   input : e=>this.$emit('input',e)
               },
               scopedSlots
-          },[]);
+          },dpChild);
 
 
           if(this.inline){
-              return h('div',{},[h('strong',{},this.label),datepicker]);
+              return h('div',{},[h('strong',{},this.label),[h('br'),datepicker]]);
           }else{
               const style = {'min-width':'200px'};
               if(this.noMargins){
@@ -121,14 +160,27 @@
                           closeOnContentClick : false,
                           transition : "v-scale-transition",
                           offsetY : true,
-                          nudgeLeft : 40
+                          nudgeLeft : 40,
+                          value: this.menuOpen
+                      },
+                      on : {
+                          input : ()=>{
+                              this.menuOpen=true;
+                          }
                       }
                   },[text,datepicker]);
               }else{
                   return h('v-dialog',{
                       props : {
                           lazy : true,
-                          persistent : false
+                          persistent : false,
+                          value: this.menuOpen,
+                          width:'290px',
+                      },
+                      on : {
+                          input : ()=>{
+                              this.menuOpen=true;
+                          }
                       }
                   },[text,datepicker]);
               }

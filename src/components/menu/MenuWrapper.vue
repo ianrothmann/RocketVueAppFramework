@@ -17,7 +17,8 @@
         },
         render(h){
             const menuProps=Object.assign({},this.$props);
-
+            delete menuProps['dark'];
+            delete menuProps['light'];
             let items=[];
             if(this.$slots.hasOwnProperty('activator')){
                 items.push(h('template',{slot:'activator'},this.$slots.activator));

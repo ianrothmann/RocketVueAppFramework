@@ -54,21 +54,16 @@ import {AppFrameworkEventBus} from '../../framework';
                           tabTitle.push(h('v-icon',{},props.icon));
                       }
 
-                      tabNodes.push(h('v-tabs-item',{attrs: {href:'#'+tabid, id:tabid, ripple:true}},tabTitle));
-                      tabContent.push(h('v-tabs-content',{attrs: {id:tabid}}, [node])),
+                      tabNodes.push(h('v-tab',{attrs: {href:'#'+tabid, id:tabid, ripple:true}},tabTitle));
+                      tabContent.push(h('v-tab-item',{attrs: {id:tabid}}, [node])),
                           id++;
                   }
 
               });
           }
 
-         const sliderProps = {
-             class : this.sliderColor || 'secondary'
-          };
 
-          const tabsBar=[h('v-tabs-bar',{},tabNodes.concat(h('v-tabs-slider',sliderProps)))];
-
-
+          const tabsBar=[tabNodes];
           let props=this.$props;
           props['icons']=icons;
           return h('v-tabs',{

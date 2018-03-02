@@ -91,8 +91,7 @@
               }else{
                   if(c.props.valueProp){
 
-                      if(typeof c.props.value==='object'){
-
+                      if(typeof c.props.value==='object' && c.props.value!=null && c.props.value.hasOwnProperty(c.props.valueProp)){
                           children=renderValue(c.props.value[c.props.valueProp]);
                       }else{
                           children=renderValue(c.props.value);

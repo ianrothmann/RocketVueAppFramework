@@ -63,7 +63,7 @@
               }
 
               const cls={
-
+                  'white--text':true
               };
               if(isset('textAvatarClass')){
                   cls[ctx.props.textAvatarClass]=true;

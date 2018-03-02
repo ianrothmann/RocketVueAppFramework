@@ -15,11 +15,24 @@
             ampm : {'default':true}
         },
         mixins : [Themable],
+        data(){
+            return {
+                menuOpen:false,
+                oldValue:null
+            }
+        },
+        watch:{
+            menuOpen(open){
+                if(open){
+                    this.oldValue=this.value;
+                }
+            }
+        },
         render(h){
             const props=Object.assign({},this.$props);
             const scopedSlots={};
 
-          if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
+        /*  if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
               scopedSlots['default']=(scope)=>{
 
                   return h('v-card-actions',{
@@ -44,7 +57,7 @@
                   ]);
               };
               props['scrollable'] = true;
-          }
+          }*/
 
           if(props['ampm'])
               props['format']='ampm';
@@ -58,13 +71,38 @@
           if(props['compact'])
             props['noTitle']=true;
 
+            const dpChild=[];
+
+            if((this.menu&&!this.inline)  || (!this.menu&&!this.inline)){
+                dpChild.push( h('v-btn',{
+                        props:{flat:true,secondary:true},
+                        on : {
+                            click : ()=>{
+                                this.menuOpen=false;
+                                this.$emit('input',this.oldValue);
+                            }
+                        }
+                    },'Cancel'),
+                );
+
+                dpChild.push(h('v-btn',{
+                        props:{flat:true,primary:true},
+                        on : {
+                            click : ()=>{
+                                this.menuOpen=false;
+                            }
+                        }
+                    },'OK')
+                );
+            }
+
           const datepicker=h('v-time-picker',{
               props,
               on : {
                   input : e=>this.$emit('input',e)
               },
               scopedSlots
-          },[]);
+          },dpChild);
 
 
           if(this.inline){
@@ -106,14 +144,27 @@
                           closeOnContentClick : false,
                           transition : "v-scale-transition",
                           offsetY : true,
-                          nudgeLeft : 40
+                          nudgeLeft : 40,
+                          value: this.menuOpen
+                      },
+                      on : {
+                          input : ()=>{
+                              this.menuOpen=true;
+                          }
                       }
                   },[text,datepicker]);
               }else{
                   return h('v-dialog',{
                       props : {
                           lazy : true,
-                          persistent : false
+                          persistent : false,
+                          value: this.menuOpen,
+                          width:'290px',
+                      },
+                      on : {
+                          input : ()=>{
+                              this.menuOpen=true;
+                          }
                       }
                   },[text,datepicker]);
               }

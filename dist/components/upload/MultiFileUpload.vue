@@ -409,7 +409,7 @@
             },
             removeFileFromList(file){
                 this.files=this.files.filter((item)=>{
-                    return item!==file;
+                    return item.url!==file.url;
                 });
             },
             previewImage(index){

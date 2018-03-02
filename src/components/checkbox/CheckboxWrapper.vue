@@ -46,12 +46,13 @@
 
           const props=Object.assign({},this.$props);
 
-          props['inputValue']=this.value;
+          props['inputValue']=props['value'];
             if(typeof props['inputValue'] === 'number'){
                 props['inputValue']=props['inputValue']>0;
             }
 
           props['value']=props['trueValue'];
+
 
             if(this.$validator!==undefined&&this.name){
                 props['error-messages']=this.validationErrors;
@@ -61,7 +62,6 @@
 
             if(!props.color)
                 props['color']=this.getColorProperty();
-
 
 
           return h('v-checkbox',{

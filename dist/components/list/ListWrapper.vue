@@ -20,8 +20,7 @@
                let props = node.componentOptions.propsData;
 
                const ownContent=[
-                   h('v-list-tile-content',{},[h('v-list-tile-title',{},props.title)]),
-                   h('v-list-tile-action',{},[h('v-icon',{},'keyboard_arrow_down')])
+                   h('v-list-tile-content',{},[h('v-list-tile-title',{},props.title)])
                ];
 
                if(props.icon){
@@ -50,7 +49,7 @@
                    on: node.componentOptions.listeners,
                  },[
                    h('v-list-tile',{
-                       slot : 'item'
+                       slot : 'activator'
                    },ownContent),
                ].concat(items));
            },
