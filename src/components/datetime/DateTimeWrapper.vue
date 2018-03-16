@@ -40,10 +40,11 @@
         },
         methods : {
            populateInnerValues(){
-               if(this.value!=null){
-                   const dt=moment(this.value,"YYYY-MM-DD kk:mm:ss");
+             if(this.value!=null){
+
+                   const dt=moment(this.value,"YYYY-MM-DD k:mm:ss");
                    this.innerDate=dt.format("YYYY-MM-DD");
-                   this.innerTime=dt.format("h:mm a");
+                   this.innerTime=dt.format("k:mm");
                }else{
                    this.innerDate=null;
                    this.innerTime=null;
@@ -52,7 +53,8 @@
            },
            emitFullDate(){
               if(this.innerDate!==null&&this.innerTime!==null){
-                  const dt=moment(this.innerDate + ' ' + this.innerTime,"YYYY-MM-DD h:mm a").format("YYYY-MM-DD kk:mm:ss");
+                  const dt=moment(this.innerDate + ' ' + this.innerTime,"YYYY-MM-DD k:mm").format("YYYY-MM-DD k:mm:ss");
+                //  console.log(this.innerDate + ' ' + this.innerTime);
                   this.$emit('input',dt);
               }
            }

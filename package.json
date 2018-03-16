@@ -1,6 +1,6 @@
 {
   "name": "rocketvueappframework",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "A series of Vue Components and Plugins that help speed up general app development. Currently implemented using Vuetify.",
   "main": "dist/framework.js",
   "scripts": {

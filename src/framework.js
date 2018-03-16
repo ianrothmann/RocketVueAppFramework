@@ -83,6 +83,7 @@ AppFramework.install = function (Vue, options) {
         AppFrameworkEventBus.$emit('activityProgress',progress);
     };
 
+
     Vue.prototype.$navigate = function (href,target) {
         if(target){
             setTimeout(()=>{

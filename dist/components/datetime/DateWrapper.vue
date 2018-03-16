@@ -74,15 +74,13 @@
 
 
           if(props['allowedDates']===undefined){
-              if(props['allowBefore']||props['allowAfter'])
-                props['allowedDates']={min:null,max:'2100-01-01'};
 
               if(props['allowBefore']){
-                  props['allowedDates']['max']=props['allowBefore'];
+                  props['max']=props['allowBefore'];
               }
 
               if(props['allowAfter']){
-                  props['allowedDates']['min']=props['allowAfter'];
+                  props['min']=props['allowAfter'];
               }
           }
 
