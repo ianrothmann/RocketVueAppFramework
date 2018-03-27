@@ -27,10 +27,15 @@
           data.class['input-group--text-field']=true;
 
           function renderValue(value){
-
               let children=null;
               if(c.props.date!==undefined){
-                  children=Vue.filter('rdate')(value,c.props.date);
+                  if(c.props.date==='time'){
+                      children=Vue.filter('rwtime')(value);
+                      children=Vue.filter('rdate')(children,'time');
+                  }else{
+                      children=Vue.filter('rdate')(value,c.props.date);
+                  }
+
               }else if(c.props.currency!==undefined){
                   children=c.props.currency+' '+Number(value).toFixed(2);
               }else if(c.props.decimals!==undefined){
@@ -50,6 +55,7 @@
                           }
                       },'')];
                       children=h('v-carousel',{},children);
+
                   }
               }else{
                   children=value;
@@ -63,16 +69,21 @@
           if(c.props.value!==undefined){
               if(Array.isArray(c.props.value)){
                   if(c.props.value.length>0){
-                      if(c.props.file==='image'){
+                      if(c.props.file==='image' && c.props.value){
                           const images=[];
                           for(let val of c.props.value){
-                              images.push(h('v-carousel-item',{
-                                  props:{
-                                      src:val[c.props.fileUrlCol]
-                                  }
-                              },''));
+                              if(val){
+                                  images.push(h('v-carousel-item',{
+                                      props:{
+                                          src:val[c.props.fileUrlCol]
+                                      }
+                                  },''));
+                              }
                           }
-                          children=h('v-carousel',{},images);
+                          if(images.length>0){
+                              children=h('v-carousel',{},images);
+                          }
+
                       }else if(c.props.separator==='bullet'){
                           const bullets=[];
                           for(let val of c.props.value){

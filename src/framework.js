@@ -52,7 +52,7 @@ Vue.component('rw-alert', require('./components/alert/AlertWrapper.vue'));
 Vue.component('rw-chip', require('./components/chip/ChipWrapper.vue'));
 Vue.component('rw-pager', require('./components/pager/PagerWrapper.vue'));
 Vue.component('rw-slider', require('./components/slider/SliderWrapper.vue'));
-Vue.component('rw-subheader', require('./components/subheader/SubheaderWrapper.vue'));
+Vue.component('rw-subheader', require('./components/subheader/SubHeaderWrapper.vue'));
 Vue.component('rw-label', require('./components/label/LabelWrapper.vue'));
 Vue.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 Vue.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
@@ -186,7 +186,7 @@ AppFramework.install = function (Vue, options) {
         }else if(format_type==='date'){
             return date.format("D MMMM YYYY");
         }else if(format_type==='time'){
-            return date.format("h:mma");
+            return date.format("HH:mm");
         }else if(format_type==='datetime'){
             return date.format("D MMMM YYYY, h:mma");
         }else if(format_type==='compactdatetime'){
@@ -203,7 +203,10 @@ AppFramework.install = function (Vue, options) {
     Vue.filter('rwtime', function(dateString) {
         let date = moment(dateString, 'h:mma' , true);
         if(!date.isValid()){
-            return null;
+            date = moment(dateString, 'HH:mm' , true);
+            if(!date.isValid()){
+                return null;
+            }
         }
         return date.format("YYYY-MM-DD HH:mm:ss");
 

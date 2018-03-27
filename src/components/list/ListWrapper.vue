@@ -120,10 +120,15 @@
                        ]
                    }else{
 
+
                        if(actionText!==null)
                            actionText=h('v-list-tile-action',{},[actionText]);
 
                        if(avatar.length===0){
+                           /*if(props.iconEnd===undefined && !actionText){
+
+                           }
+                            */
                            final=[
                                h('v-list-tile-avatar',{},action),
                                h('v-list-tile-content',{},content),
@@ -137,9 +142,12 @@
                                actionText,
                                avatar
                            ]
+
                        }
 
+
                    }
+
                }else if(props.avatarEnd!==undefined){
                    if(actionText!==null)
                        actionText=h('v-list-tile-action',{},[actionText]);

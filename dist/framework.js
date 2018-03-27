@@ -78,7 +78,7 @@ _vue2.default.component('rw-alert', require('./components/alert/AlertWrapper.vue
 _vue2.default.component('rw-chip', require('./components/chip/ChipWrapper.vue'));
 _vue2.default.component('rw-pager', require('./components/pager/PagerWrapper.vue'));
 _vue2.default.component('rw-slider', require('./components/slider/SliderWrapper.vue'));
-_vue2.default.component('rw-subheader', require('./components/subheader/SubheaderWrapper.vue'));
+_vue2.default.component('rw-subheader', require('./components/subheader/SubHeaderWrapper.vue'));
 _vue2.default.component('rw-label', require('./components/label/LabelWrapper.vue'));
 _vue2.default.component('rw-accord', require('./components/accordion/AccordionWrapper.vue'));
 _vue2.default.component('rw-accord-panel', require('./components/accordion/AccordionPanelWrapper.vue'));
@@ -207,7 +207,7 @@ AppFramework.install = function (Vue, options) {
         } else if (format_type === 'date') {
             return date.format("D MMMM YYYY");
         } else if (format_type === 'time') {
-            return date.format("h:mma");
+            return date.format("HH:mm");
         } else if (format_type === 'datetime') {
             return date.format("D MMMM YYYY, h:mma");
         } else if (format_type === 'compactdatetime') {
@@ -224,7 +224,10 @@ AppFramework.install = function (Vue, options) {
     Vue.filter('rwtime', function (dateString) {
         var date = (0, _moment2.default)(dateString, 'h:mma', true);
         if (!date.isValid()) {
-            return null;
+            date = (0, _moment2.default)(dateString, 'HH:mm', true);
+            if (!date.isValid()) {
+                return null;
+            }
         }
         return date.format("YYYY-MM-DD HH:mm:ss");
     });

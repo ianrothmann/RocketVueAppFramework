@@ -50,15 +50,15 @@
 
             if(ctx.children){
                 ctx.children.forEach((node)=>{
-
                     if(node.tag){
-                        if(node.functionalOptions && node.functionalOptions.name==='title'){
+                        if(node.fnOptions && node.fnOptions.name==='title'){
                             titleChildren.push(node);
-                        }else if(node.data && node.functionalOptions && node.functionalOptions.name==='actions'){
+                        }else if(node.data && node.fnOptions && node.fnOptions.name==='actions'){
                             if(node.data.props['divider']!==false)
                                 actionChildren.push(h('v-divider'));
 
                             actionChildren.push(node);
+
                         }else{
                             innerChildren.push(node);
                         }
@@ -107,6 +107,7 @@
             };
 
             data=Object.assign(data,ctx.data);
+
             return h('v-card',data,[cardMedia,cardTitle,cardContent,actionChildren]);
 
 
