@@ -70,7 +70,7 @@
 
            let cardMedia=null;
            if(ctx.props.img){
-               cardMedia=h('v-card-media',{
+               cardMedia=h('v-img',{
                  props : {
                      src : ctx.props.img,
                      height : ctx.props.imgHeight,
@@ -78,7 +78,6 @@
                  }
                });
            }
-
            let cardTitle=null;
            if(ctx.props.title&&titleChildren.length===0){
                titleChildren.push(

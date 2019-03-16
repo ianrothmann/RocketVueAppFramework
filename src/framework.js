@@ -37,7 +37,7 @@ Vue.component('rw-multi-group', require('./components/checkbox/MultiGroupWrapper
 Vue.component('rw-checkbox', require('./components/checkbox/CheckboxWrapper.vue'));
 Vue.component('rw-switch', require('./components/switch/SwitchWrapper.vue'));
 Vue.component('rw-select', require('./components/select/SelectWrapper.vue'));
-Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
+//Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
 Vue.component('rw-tabs', require('./components/tabs/TabsWrapper.vue'));
 Vue.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
 Vue.component('rw-card', require('./components/card/CardWrapper.vue'));

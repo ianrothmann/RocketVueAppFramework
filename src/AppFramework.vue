@@ -9,21 +9,30 @@
             <span class="grey--text--darken-3" v-html="loaderText" v-if="loaderText!=''"></span>
         </div>
 
-        <rw-dialog :width="dialogContent.width || '40%'" :hide-overlay="dialogContent.hideOverlay" :title="dialogContent.title" v-model="showDialog" :persistent="true">
-            <div v-html="dialogContent.content"></div>
-            <div slot="actions">
-                <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
-            </div>
-        </rw-dialog>
+        <v-dialog :width="dialogContent.width || '40%'" :hide-overlay="dialogContent.hideOverlay" v-model="showDialog" :persistent="true">
+            <v-card>
+                <v-card-title class="headline">{{dialogContent.title}}</v-card-title>
+                <v-card-text>
+                    <div v-html="dialogContent.content"></div>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn v-for="(btn,key) in dialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="dialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
-        <rw-dialog :width="formDialogContent.width || '40%'" :hide-overlay="formDialogContent.hideOverlay" :title="formDialogContent.title" v-model="showFormDialog" :persistent="true">
-            <div v-html="formDialogContent.content"></div>
-            <rocket-form-renderer :definition="formDialogContent.definition" :value="formDialogContent.data" @valid="rocketFormValid($event)" @invalid="rocketFormInvalid($event)" :id="formDialogContent.id"></rocket-form-renderer>
-            <div slot="actions">
-                <v-btn v-for="(btn,key) in formDialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="formDialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
-            </div>
-        </rw-dialog>
-
+        <v-dialog :width="formDialogContent.width || '40%'" :hide-overlay="formDialogContent.hideOverlay" v-model="showFormDialog" :persistent="true">
+            <v-card>
+                <v-card-title class="headline">{{formDialogContent.title}}</v-card-title>
+                <v-card-text>
+                    <div v-html="formDialogContent.content"></div>
+                    <rocket-form-renderer :definition="formDialogContent.definition" :value="formDialogContent.data" @valid="rocketFormValid($event)" @invalid="rocketFormInvalid($event)" :id="formDialogContent.id"></rocket-form-renderer>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn v-for="(btn,key) in formDialogContent.buttons" :key="key" :class="[objProp(btn,'color','primary')+'--text']" flat @click.native.stop="formDialogButtonClicked(key)" v-html="isObject(btn)?btn.label:btn"></v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
         <v-snackbar
                 :timeout="snackbar.duration"

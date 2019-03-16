@@ -19,7 +19,7 @@
     }
 </script>
 <style>
-    .subheader.trim{
+    .v-subheader.trim{
         padding:0!important;
     }
 </style>

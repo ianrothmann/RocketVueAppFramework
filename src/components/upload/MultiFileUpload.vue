@@ -3,7 +3,7 @@
 
            <input type="file" :accept="processedAccept" :multiple="true" :disabled="disabled"
                   ref="fileInput" @change="onFileChange">
-       <rw-subheader v-html="processedLabel" trim></rw-subheader>
+       <v-subheader v-html="processedLabel"></v-subheader>
            <v-list dense subheader v-if="files.length>0">
 
                <draggable :list="files" :options="{animation:50, disabled:!reOrder}" @start="startReorder($event)" @end="updateOrder()">
@@ -85,14 +85,17 @@
            </v-list>
 
 
-       <v-dialog v-show="delDialog" v-model="delDialog" persistent>
-           <rw-card title="Are you sure?">
-               Are you sure that you want to delete <span v-if="delIndex!==null">{{files[delIndex].originalfilename}}</span>?
-               <rw-card-actions>
+       <v-dialog v-show="delDialog" v-model="delDialog" persistent width="30%">
+           <v-card title="Are you sure?">
+               <v-card-title primary-title>
+                   <h3 class="headline mb-0">Are you sure?</h3>
+               </v-card-title>
+              <v-card-text>  Are you sure that you want to delete <span v-if="delIndex!==null">{{files[delIndex].originalfilename}}</span>?</v-card-text>
+               <v-card-actions>
                    <v-btn class="info--text" flat="flat" @click="delDialog = false">Cancel</v-btn>
                    <v-btn class="warning--text" flat="flat" @click="deleteFile(delIndex)">OK</v-btn>
-               </rw-card-actions>
-           </rw-card>
+               </v-card-actions>
+           </v-card>
        </v-dialog>
 
        <v-dialog v-if="lightboxDialog" width="70%" v-model="lightboxDialog">

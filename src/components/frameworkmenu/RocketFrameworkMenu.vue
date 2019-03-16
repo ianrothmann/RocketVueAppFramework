@@ -118,7 +118,6 @@
                     props.target=item.itemTarget;
                 }else if(item.itemLink!=null){
                     on['click']=()=>{
-
                         this.navigate(item.itemLink);
                     };
                 }

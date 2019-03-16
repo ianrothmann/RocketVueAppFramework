@@ -63,7 +63,7 @@ _vue2.default.component('rw-multi-group', require('./components/checkbox/MultiGr
 _vue2.default.component('rw-checkbox', require('./components/checkbox/CheckboxWrapper.vue'));
 _vue2.default.component('rw-switch', require('./components/switch/SwitchWrapper.vue'));
 _vue2.default.component('rw-select', require('./components/select/SelectWrapper.vue'));
-_vue2.default.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
+//Vue.component('rw-dialog', require('./components/dialog/DialogWrapper.vue'));
 _vue2.default.component('rw-tabs', require('./components/tabs/TabsWrapper.vue'));
 _vue2.default.component('rw-tab', require('./components/tabs/TabWrapper.vue'));
 _vue2.default.component('rw-card', require('./components/card/CardWrapper.vue'));

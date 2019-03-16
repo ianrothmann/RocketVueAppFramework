@@ -59,10 +59,6 @@
                 if(props['itemValue']===undefined)
                     props['itemValue']='id';
 
-                if(props['search']){
-                    props['autocomplete']=true;
-                }
-
                 if(props['multi']){
                     props['multiple']=true;
                 }
@@ -78,7 +74,12 @@
             /*
              TODO:List item custom formatting and server-items
              */
-          return h('v-select',{
+            let el='v-select';
+            if(this.innerProps.hasOwnProperty('search')&&this.innerProps.search===true){
+                el='v-autocomplete';
+            }
+
+          return h(el,{
               props : this.innerProps,
               attrs : {
               },

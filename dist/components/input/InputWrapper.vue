@@ -64,11 +64,7 @@
                    if(this.showPassword){
                        props['type']='text';
                    }
-                   props['appendIconCb']=()=>{
-                     this.showPassword=!this.showPassword;
-                   };
                 }
-                props['multi-line']=this.multiline;
 
                 if(this.$validator!==undefined&&this.name){
                     props['error-messages']=this.validationErrors;
@@ -109,14 +105,20 @@
         },
         render(h){
 
-          return h('v-text-field',{
+            let el='v-text-field';
+            if(this.multiline){
+                el='v-textarea';
+            }
+
+          return h(el,{
               props : this.innerProps,
               attrs : this.innerAttrs,
               on : {
                   input : e => this.$emit('input',e),
                   focus : e => this.$emit('focus',e),
                   blur : e => this.$emit('blur',e),
-                  change : e => this.$emit('change',e)
+                  change : e => this.$emit('change',e),
+                  'click:append' : e =>this.showPassword=!this.showPassword
               }
           },this.$slots.default);
         }
