@@ -1,7 +1,7 @@
 <template>
    <div @drop="drop($event)" @dragover="dragHover($event)" @dragleave="dragLeave($event)">
 
-           <input type="file" :accept="processedAccept" :multiple="true" :disabled="disabled"
+           <input type="file" :multiple="true" :disabled="disabled"
                   ref="fileInput" @change="onFileChange">
        <v-subheader v-html="processedLabel"></v-subheader>
            <v-list dense subheader v-if="files.length>0">
@@ -296,7 +296,7 @@
                         exceededMaxFilesize=true;
 
                     if(fileFilterActive){
-                        if(this.accept.find(el=>el.toLowerCase()===file.type.toLowerCase())===undefined)
+                        if(this.accept.filter(el=>el.toLowerCase()===file.type.toLowerCase()).length===0)
                             filesAccepted=false;
                     }
 
